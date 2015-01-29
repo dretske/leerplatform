@@ -15,7 +15,7 @@ rekenenApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
             .when('/rekenen', {
                 templateUrl: 'oefeningen/rekenen.html',
-                controller: 'SnelRekenenCtrl'
+                controller: 'RekenenCtrl'
             })
             .when('/menu', {
                 templateUrl: 'menu.html',

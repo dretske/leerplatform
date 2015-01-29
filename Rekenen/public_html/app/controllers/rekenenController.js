@@ -1,81 +1,116 @@
 'use strict';
 
-/* Controllers */
-
 var rekenenControllers = angular.module('rekenenControllers');
 
-rekenenControllers.controller('RekenenCtrl', ['$scope', '$document', '$window', 'ExerciseGenerator',
-    function ($scope, $document, $window, ExerciseGenerator) {
+rekenenControllers.controller('RekenenCtrl', 
+    ['$scope', '$routeParams', 'ExerciseGenerator', '$timeout', '$modal', '$location', '$log',
+    function ($scope, $routeParams, ExerciseGenerator, $timeout, $modal, $location, $log) {
 
+        var min = $routeParams.min;
+        var max = $routeParams.max;
+        $scope.numberOfExercises = 10;
         $scope.successMessage = null;
         $scope.failMessage = null;
         $scope.score = 0;
         $scope.exercises = [];
         $scope.currentExerciseIndex = 0;
         $scope.currentExercise = null;
-        $scope.allElements;
+        $scope.testlist = ['één', 'twee', 'drie'];
         
-        angular.element($window).bind('resize', function () {
-                clearCanvas();
-            });
-
-        function clearCanvas() {
-            console.log('clearing canvas in controller');
-            var canvas = $document[0].getElementById('canvas');
-            var context = canvas.getContext('2d');
-            context.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
+        var easter_egg = new Konami(
+            function() { 
+                $scope.score = $scope.numberOfExercises;
+                $scope.currentExerciseIndex = $scope.numberOfExercises - 1;
+                $scope.nextExercise();
+            }
+        );
+        
         $scope.nextExercise = function () {
-            clearCanvas();
-            $scope.currentExerciseIndex++;
-            $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
-            $scope.allElements = allElementsForExercise($scope.currentExercise.equation);
+            if ($scope.currentExerciseIndex < $scope.numberOfExercises-1) {
+                $scope.currentExerciseIndex++;
+                $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
+            } else {
+                openResultaatPopup();
+            }
         };
 
         $scope.generateExercises = function () {
-            $scope.exercises = ExerciseGenerator.generateExercises(10);
+            $scope.score = 0;
+            $scope.currentExerciseIndex = 0;
+            $log.log("min: " + min + ", max: " + max);
+            $scope.exercises = ExerciseGenerator.generateExercises($scope.numberOfExercises, min, max);
             $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
-            $scope.allElements = allElementsForExercise($scope.currentExercise.equation);
         };
         
         $scope.submitAnswer = function (data) {
-            if (data === $scope.currentExercise.solution) {
+            var solutionCorrect = $scope.currentExercise.enterAnswer(data);
+            var timeToNextExercise;
+            if (solutionCorrect) {
                 $scope.successMessage = 'Proficiat!';
                 $scope.failMessage = null;
                 $scope.score++;
-                $scope.currentExercise.score = 1;
+                timeToNextExercise = 1000;
             } else {
                 $scope.successMessage = null;
                 $scope.failMessage = 'Fout';
-                $scope.currentExercise.score = 0;
+                timeToNextExercise = 4000;
             }
-            $scope.nextExercise();
+            $timeout($scope.nextExercise, timeToNextExercise);
+            return solutionCorrect;
         };
-              
-        function allElementsForExercise(exercise) {
-            var allElements = [];
-
-            allElements.push(exercise.lhsConstants[0]);
-            for (var i = 0; i< exercise.lhsOperators.length; i++) {
-                allElements.push(exercise.lhsOperators[i]);
-                allElements.push(exercise.lhsConstants[i+1]);
-            }
-
-            allElements.push('=');
-
-            allElements.push(exercise.rhsConstants[0]);
-            for (var i = 0; i< exercise.rhsOperators.length; i++) {
-                allElements.push(exercise.rhsOperators[i]);
-                allElements.push(exercise.rhsConstants[i+1]);
-            }
+        
+        function openResultaatPopup() {
+            var modalInstance = $modal.open({
+                templateUrl: 'oefeningen/resultaatPopup.html',
+                controller: 'ResultaatCtrl',
+                size: 'lg',
+                resolve: {
+                    score: function () {
+                        return $scope.score;
+                    },
+                    totaal: function () {
+                        return $scope.numberOfExercises;
+                    }
+                }
+            });
             
-            return allElements;
+            modalInstance.result.then(function (result) {
+                switch (result) {
+                    case 'terug':
+                        $location.url("/menu");
+                        break;
+                    case 'opnieuw':
+                        $scope.generateExercises();
+                        break;
+                }
+                $scope.generateExercises();
+            }, function () {
+                $location.url("/menu");
+            });
         };
-
+       
     }]);
 
-rekenenControllers.controller('StartSchermCtrl', ['$scope',
-    function ($scope) {
-
-    }]);
+rekenenControllers.controller('ResultaatCtrl', ['$scope', '$modalInstance', 'score', 'totaal', function ($scope, $modalInstance, score, totaal) {
+    $scope.score = score; 
+    $scope.totaal = totaal;
+    
+    $scope.toonSter1 = function() {
+        return (score/totaal) >= 0.8;
+    };
+    $scope.toonSter2 = function() {
+        return (score/totaal) >= 0.9;
+    };
+    $scope.toonSter3 = function() {
+        return score === totaal;
+    };
+    
+    $scope.terug = function() {
+        $modalInstance.close('terug');
+    };
+    
+    $scope.opnieuw = function() {
+        $modalInstance.close('opnieuw');
+    };
+    
+}]);
