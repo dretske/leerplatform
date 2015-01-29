@@ -1,0 +1,35 @@
+<div ng-controller="SnelRekenenCtrl" ng-init="generateExercises()">
+    <div class="contentParent">
+        <div class="centeredInParent">
+            <div id="opgave">
+                <div id="vergelijking">
+                   <div class="vergelijkingElement" 
+                         ng-repeat="element in currentExercise.equation.allElements() track by $index">
+                        <div ng-show="element === '?'" class="unknown"
+                            ng-class="{juist : currentExercise.score > 0, fout : currentExercise.score === 0}">
+                            {{currentExercise.answer === null ? '?' : currentExercise.answer}}
+                        </div>
+                        <div ng-show="element === '?' && currentExercise.score === 0"
+                              class="juist">
+                            {{currentExercise.solution}}
+                        </div>
+                        <div ng-show="element !== '?'">
+                            {{element}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div id="antwoorden" class="centeredInParent">
+            <button class="antwoord getal" 
+                ng-repeat="keuze in currentExercise.options"
+                ng-click="submitAnswer(keuze)"
+                ng-disabled="currentExercise.score >= 0"
+            >
+                {{keuze}}
+            </button>
+        </div>
+    </div>
+</div>

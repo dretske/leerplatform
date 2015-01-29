@@ -1,0 +1,12 @@
+<div class="resultaatPopup" style="text-align: center;" ng-cloak>
+    Jouw score is: {{score}} op {{totaal}}.
+    <div class="sterren">
+        <img class="ster1" src="images/star-cropped-{{ toonSter1() ? 'active-border' : 'inactive'}}.png" alt="1e ster" />
+        <img class="ster2" src="images/star-cropped-{{ toonSter2() ? 'active-border' : 'inactive'}}.png" alt="2e ster" />
+        <img class="ster3" src="images/star-cropped-{{ toonSter3() ? 'active-border' : 'inactive'}}.png" alt="3e ster" />
+    </div>
+    <div class="popupButtons">
+        <div ng-click="terug()">Terug naar menu</div>
+        <div ng-click="opnieuw()">Opnieuw</div>
+    </div>
+</div>
