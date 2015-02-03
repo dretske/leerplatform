@@ -37,7 +37,6 @@ rekenenControllers.controller('RekenenCtrl',
         $scope.generateExercises = function () {
             $scope.score = 0;
             $scope.currentExerciseIndex = 0;
-            $log.log("min: " + min + ", max: " + max);
             $scope.exercises = ExerciseGenerator.generateExercises($scope.numberOfExercises, min, max);
             $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
         };
@@ -58,6 +57,13 @@ rekenenControllers.controller('RekenenCtrl',
             $timeout($scope.nextExercise, timeToNextExercise);
             return solutionCorrect;
         };
+        
+        $scope.footerClass = function() {
+            if ($scope.currentExercise !== null) {
+                return "rows-" + Math.ceil($scope.currentExercise.options.length / 6);
+            }
+            return "";
+        }
         
         function openResultaatPopup() {
             var modalInstance = $modal.open({

@@ -1,4 +1,46 @@
 var customMatchers = {
+    toMatch: function(util, customEqualityTesters) {
+        
+        function matches(value, matchingFunction, result) {
+            return matchingFunction(value, result);
+        }
+        
+        return {
+            compare: function(actual, matchingFunction) {
+                var result = {
+                    pass: true,
+                    message: ""
+                };
+                
+                result.pass = matches(actual, matchingFunction, result);
+                
+                return result;
+            }
+        };
+    },
+    toAllMatch: function(util, customEqualityTesters) {
+        
+        function matches(value, matchingFunction, result) {
+            return matchingFunction(value, result);
+        }
+        
+        return {
+            compare: function(array, matchingFunction) {
+                var result = {
+                    pass: true,
+                    message: ""
+                };
+                
+                for (i = 0; i < array.length; i++) {
+                    if (!matches(array[i], matchingFunction, result)) {
+                        break;
+                    }
+                }
+                
+                return result;
+            }
+        };
+    },
     toContainElementsNoLargerThan: function(util, customEqualityTesters) {
         
         function maxElementInArray(array) {

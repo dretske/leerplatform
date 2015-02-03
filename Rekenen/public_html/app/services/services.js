@@ -51,10 +51,27 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
             var exercises = [];
             
             for (var i = 0; i < numberOfExercises; i++) {
-                exercises.push(generateExercise(parseInt(minConstantsSize), parseInt(maxConstantsSize)));
+                var exercise;
+                if (i === 0) {
+                    exercise = generateExercise(parseInt(minConstantsSize), parseInt(maxConstantsSize));
+                } else {
+                    exercise = generateExerciseAndCheckDifference(
+                            parseInt(minConstantsSize), 
+                            parseInt(maxConstantsSize),
+                            exercises[i-1]);
+                }
+                exercises.push(exercise);
             }
             
             return exercises;
+        }
+
+        function generateExerciseAndCheckDifference(minConstantsSize, maxConstantsSize, previousExercise) {
+            var exercise;
+            do {
+                exercise = generateExercise(minConstantsSize, maxConstantsSize);
+            } while (exercise.equation.equals(previousExercise.equation));
+            return exercise;
         }
 
         function generateExercise(minConstantsSize, maxConstantsSize) {
@@ -163,7 +180,14 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
                     }
 
                     return allElements;
-                } 
+                },
+                equals: function(other) {
+                    return arrayEquals(this.lhsConstants, other.lhsConstants)
+                        && arrayEquals(this.lhsOperators, other.lhsOperators)
+                        && arrayEquals(this.rhsConstants, other.rhsConstants)
+                        && arrayEquals(this.rhsOperators, other.rhsOperators)
+                        ;
+                }
             };
         }
 
@@ -184,8 +208,9 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
                 // First constant needs to be positive and big enough so it is still 
                 // possible to get to the result, given the remaining number of constants
                 var maxPossibleSumForRemainingConstants = (numberOfConstants-1) * maxConstantValue;
+                var minPossibleSumForRemainingConstants = (numberOfConstants-1) * minConstantValue;
                 var minValueOfFirstConstant = Math.max(minConstantValue, minResult - maxPossibleSumForRemainingConstants);
-                var maxValueOfFirstConstant = Math.min(maxResult + maxPossibleSumForRemainingConstants, maxConstantValue);
+                var maxValueOfFirstConstant = Math.min(maxResult - minPossibleSumForRemainingConstants, maxConstantValue);
 
                 // We add a constant 
                 var firstConstant = randomNumberBetween(minValueOfFirstConstant, maxValueOfFirstConstant);
@@ -193,7 +218,7 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
 
                 if (numberOfConstants > 1) {
                     var remainingNumbersInEquation = generateIntegerNumbersTotallingBetween(
-                            minResult - firstConstant, maxResult - firstConstant, numberOfConstants - 1, maxConstantValue);
+                            minResult - firstConstant, maxResult - firstConstant, numberOfConstants - 1, minConstantValue, maxConstantValue);
                     remainingNumbersInEquation.forEach(function (number) {
                         if (number > 0) {
                             operators.push('+');
@@ -213,11 +238,11 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
             }
         }
 
-        function generateIntegerNumbersTotallingBetween(minResult, maxResult, size, maxValue) {
+        function generateIntegerNumbersTotallingBetween(minResult, maxResult, size, minValue, maxValue) {
             var numbers = [];
             
             if (size === 1) {
-                return [Math.min(randomNumberBetween(minResult, maxResult), maxValue)];
+                return [Math.min(randomNumberBetween(Math.max(minResult, minValue), maxResult), maxValue)];
             } else {
                 var maxPossibleSumForRemainingConstants = (size - 1) * maxValue;
                 var minValueOfFirstNumber = minResult - maxPossibleSumForRemainingConstants;
@@ -230,7 +255,7 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
                 numbers.push(firstNumber);
 
                 if (size > 1) {
-                    numbers.push(generateIntegerNumbersTotallingBetween(minResult - firstNumber, maxResult - firstNumber, size - 1, maxValue));
+                    numbers.push(generateIntegerNumbersTotallingBetween(minResult - firstNumber, maxResult - firstNumber, size - 1, minValue, maxValue));
                 } 
 
                 return numbers;
@@ -281,9 +306,21 @@ rekenenServices.factory('ExerciseGenerator', ['$log',
             return Math.random() >= 0.5;
         }
         
+        function arrayEquals(a, b) {
+            if (a === b) return true;
+            if (a == null || b == null) return false;
+            if (a.length != b.length) return false;
+
+            for (var i = 0; i < a.length; ++i) {
+              if (a[i] !== b[i]) return false;
+            }
+            return true;
+          }
+        
         return {
             generateEquation: generateEquation,
             generateExercise: generateExercise,
             generateExercises: generateExercises
         };
-    }]);
+    }
+]);

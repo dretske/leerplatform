@@ -3,54 +3,9 @@
     src: url("../fonts/appleberry_with_cyrillic.ttf");
 }
 
-.contentParent {
+body {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
-}
-
-#container {
-    text-align: center;
-    top: 20px;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    position: absolute;
-}
-
-#header {
-    margin-bottom: 20px;
-}
-
-#titel {
-    font-size: x-large;
-    border-bottom: 1px solid black;
-    padding: 5px;
-    background-color: #ffffc0;
-}
-
-#scorebord {
-    font-size: x-large;
-}
-
-#foutboodschap {
-    font-size: large;
-    background-color: red;
-}
-
-#succesboodschap {
-    font-size: large;
-    background-color: green;
-}
-
-#huidigeOefening {
-    position: relative;
-    display: inline-block;
-    margin-top: 70px;
-    z-index: 100;
-    padding: 20px;
-}
-
-#opgave {
 }
 
 #vergelijking {
@@ -106,7 +61,7 @@
 
 .vergelijkingElement {
     font-family: Chalk, Verdana, Geneva, sans-serif;
-    font-size: 42vh;
+    font-size: 30vh;
     margin: 5px;
     display: inline-block;
     vertical-align: top;
@@ -164,12 +119,18 @@ img.vergelijkingElementTeken {
     text-align: center;
     vertical-align: middle;
     padding: 4px 28px;
-    font-size: 12vh;
-    font-family: Chalk, verdana;
     margin: 7px;
     background-color: rgba(225,225,225,0.4);
     color: white;
+    font-family: Chalk, verdana;
+    font-size: 12vw;
+    width: 150px;
 }
+
+.rows-2 .antwoord {
+    width: 160px;
+    font-size: 8.5vw;
+ }
 
 .resultaatPopup {
     background: repeating-linear-gradient(
@@ -183,7 +144,6 @@ img.vergelijkingElementTeken {
 
 .ster1, .ster2, .ster3 {
     width: 15vw;
-    
 }
 
 .menu {

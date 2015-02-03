@@ -23,6 +23,19 @@ describe("rekenenServices tests", function () {
                 .toContainElementsNoLargerThan(maxConstantsSize);
     });
 
+    it("generateExercise - equation : solution in options", function () {
+        var exercises = ExerciseGenerator.generateExercises(100, 1, 3);
+        var solutionInOptions = function(exercise, result) {
+            result.pass = exercise.options.indexOf(exercise.solution) !== -1;
+            if (!result.pass) {
+                result.message = "Solution to exercise " + exercise.equation.toString() 
+                        + " is not contained in the options " + exercise.options;
+            }
+            return result.pass;
+        };
+        expect(exercises).toAllMatch(solutionInOptions);
+    });
+
     it("generateExercise - equation : options contain all elements from minConstantSize to maxConstantSize", function () {
         expect(ExerciseGenerator.generateExercise(1, 3).options).toContain(1,2,3);
     });
@@ -38,6 +51,26 @@ describe("rekenenServices tests", function () {
         exercise.enterAnswer(arrayValueDifferentFrom(exercise.options, exercise.solution));
         expect(exercise.score).toEqual(0);
     });
+    
+    it("generateExercise - equation : every generated exercise equation differs from the previous one", function () {
+        var exercises = ExerciseGenerator.generateExercises(100, 1, 3);
+        var consecutiveExerciseEquationsNotEqual = function(exercises, result) {
+            var previousExercise = exercises[0];
+            for(var i=1; i < exercises.length; i++) {
+                if (exercises[i].equation.equals(previousExercise.equation)) {
+                    result.pass = false;
+                    result.message = "Two consecutively generated exercises are equal: " 
+                            + exercises[i].equation.toString() + " and " 
+                            + previousExercise.equation.toString();
+                    break;
+                }
+                previousExercise = exercises[i];
+            }
+            return result.pass;
+        };
+        expect(exercises).toMatch(consecutiveExerciseEquationsNotEqual);
+    });
+
     
     function arrayValueDifferentFrom(values, notValue) {
         for (var i=0; i< values.length; i++) {
