@@ -10,6 +10,7 @@ body {
 
 #vergelijking {
     margin: 0 auto;
+    display: inline-block;
 }
 
 .oefeningInOverview {
@@ -62,7 +63,7 @@ body {
 .vergelijkingElement {
     font-family: Chalk, Verdana, Geneva, sans-serif;
     font-size: 30vh;
-    margin: 5px;
+    padding: 15px;
     display: inline-block;
     vertical-align: top;
     text-align: center;
@@ -70,6 +71,42 @@ body {
     min-width: 50px;
     color: white;
 }
+
+.vergelijkingElement .grafisch {
+    width: 160px;
+    height: 160px;
+} 
+.apple1 {
+    background-image: url('../images/graphicnumbers/apples-1.png');
+} 
+.apple2 {
+    background-image: url('../images/graphicnumbers/apples-2.png');
+} 
+.apple3 {
+    background-image: url('../images/graphicnumbers/apples-3.png');
+} 
+.apple4 {
+    background-image: url('../images/graphicnumbers/apples-4.png');
+} 
+.apple5 {
+    background-image: url('../images/graphicnumbers/apples-5.png');
+}
+
+.ijsjes1 {
+    background-image: url('../images/graphicnumbers/ijsjes-1.png');
+} 
+.ijsjes2 {
+    background-image: url('../images/graphicnumbers/ijsjes-2.png');
+} 
+.ijsjes3 {
+    background-image: url('../images/graphicnumbers/ijsjes-3.png');
+} 
+.ijsjes4 {
+    background-image: url('../images/graphicnumbers/ijsjes-4.png');
+} 
+.ijsjes5 {
+    background-image: url('../images/graphicnumbers/ijsjes-5.png');
+} 
 
 img.vergelijkingElementTeken {
     width: 12vw;
@@ -90,6 +127,52 @@ img.vergelijkingElementTeken {
 /*    background-image: url("../images/red-cross.png");
     background-size: contain;
     background-repeat: no-repeat;*/
+}
+
+.vergelijkingElement .grafisch.juist {
+    position: relative;
+}
+
+.vergelijkingElement .grafisch.fout {
+    position: relative;
+    border: 3px solid red; 
+    border-radius: 50%;
+}
+
+.grafisch.juist:before {
+    position: absolute;
+    border: 3px solid yellowgreen; 
+    border-radius: 50%;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.grafisch.fout:before, .grafisch.fout:after {
+    position: absolute;
+    content: '';
+    background: red;
+    display: block;
+    width: 100%;
+    height: 15px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.grafisch.fout:after {
+    -webkit-transform: rotate(45deg);  
+    transform: rotate(45deg);
 }
 
 .unknown {
@@ -126,6 +209,16 @@ img.vergelijkingElementTeken {
     font-size: 12vw;
     width: 150px;
 }
+
+.antwoord.grafisch {
+    width: auto;
+    padding: 10px;
+}
+
+.antwoord .grafisch {
+    width: 160px;
+    height: 160px;
+} 
 
 .rows-2 .antwoord {
     width: 160px;

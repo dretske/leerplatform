@@ -14,7 +14,7 @@ var rekenenApp = angular.module('rekenenApp', [
 rekenenApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
             .when('/rekenen', {
-                templateUrl: 'oefeningen/rekenen.html',
+                templateUrl: 'oefeningen/rekenen/rekenen.html',
                 controller: 'RekenenCtrl'
             })
             .when('/menu', {

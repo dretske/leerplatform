@@ -6,8 +6,11 @@ rekenenControllers.controller('RekenenCtrl',
     ['$scope', '$routeParams', 'ExerciseGenerator', '$timeout', '$modal', '$location', '$log',
     function ($scope, $routeParams, ExerciseGenerator, $timeout, $modal, $location, $log) {
 
-        var min = $routeParams.min;
         var max = $routeParams.max;
+        var subtraction = $routeParams.subtraction === undefined ? true : false;
+        var graphical = $routeParams.graphical === undefined ? false : true;
+        var withoutZero = graphical || ($routeParams.withoutZero === undefined ? false : true);
+        
         $scope.numberOfExercises = 10;
         $scope.successMessage = null;
         $scope.failMessage = null;
@@ -16,6 +19,7 @@ rekenenControllers.controller('RekenenCtrl',
         $scope.currentExerciseIndex = 0;
         $scope.currentExercise = null;
         $scope.testlist = ['één', 'twee', 'drie'];
+        $scope.graphicStyle = $routeParams.style === undefined ? 'apple' : $routeParams.style;
         
         var easter_egg = new Konami(
             function() { 
@@ -25,10 +29,15 @@ rekenenControllers.controller('RekenenCtrl',
             }
         );
         
+        $scope.toggleShowSolution = function () {
+            $scope.currentExercise.showSolution = true;
+        }
+        
         $scope.nextExercise = function () {
             if ($scope.currentExerciseIndex < $scope.numberOfExercises-1) {
                 $scope.currentExerciseIndex++;
                 $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
+                $scope.currentExercise.showSolution = false;
             } else {
                 openResultaatPopup();
             }
@@ -36,9 +45,9 @@ rekenenControllers.controller('RekenenCtrl',
 
         $scope.generateExercises = function () {
             $scope.score = 0;
-            $scope.currentExerciseIndex = 0;
-            $scope.exercises = ExerciseGenerator.generateExercises($scope.numberOfExercises, min, max);
-            $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
+            $scope.exercises = ExerciseGenerator.generateExercises($scope.numberOfExercises, withoutZero, max, subtraction);
+            $scope.currentExerciseIndex = -1;
+            $scope.nextExercise();
         };
         
         $scope.submitAnswer = function (data) {
@@ -52,7 +61,8 @@ rekenenControllers.controller('RekenenCtrl',
             } else {
                 $scope.successMessage = null;
                 $scope.failMessage = 'Fout';
-                timeToNextExercise = 4000;
+                timeToNextExercise = 6000;
+                $timeout($scope.toggleShowSolution, 2000);
             }
             $timeout($scope.nextExercise, timeToNextExercise);
             return solutionCorrect;
@@ -63,6 +73,24 @@ rekenenControllers.controller('RekenenCtrl',
                 return "rows-" + Math.ceil($scope.currentExercise.options.length / 6);
             }
             return "";
+        }
+        
+        $scope.isNumeric = function(elem) {
+            return typeof elem === "number";
+        }
+        
+        $scope.vergelijkingElementTemplate = function() {
+            if (graphical) {
+                return "vergelijkingElement_images.html";
+            }
+            return "vergelijkingElement.html";
+        }
+        
+        $scope.antwoordenTemplate = function() {
+            if (graphical) {
+                return "antwoorden_images.html";
+            }
+            return "antwoorden.html";
         }
         
         function openResultaatPopup() {

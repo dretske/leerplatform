@@ -1,0 +1,21 @@
+<div id="container" ng-controller="RekenenCtrl" ng-init="generateExercises()">
+    <div id="contentWithFooter" ng-class="footerClass()">
+        <div class="centeredInParentContainer">
+            <div class="centeredInParent">
+                <div id="opgave">
+                    <div id="vergelijking">
+                       <div class="vergelijkingElement centeredInParent" 
+                             ng-repeat="element in currentExercise.equation.allElements() track by $index" 
+                             ng-include="'oefeningen/rekenen/' + vergelijkingElementTemplate()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer" ng-class="footerClass()">
+        <div id="antwoorden" class="centeredInParent" 
+             ng-include="'oefeningen/rekenen/' + antwoordenTemplate()">
+        </div>
+    </div>
+</div>
