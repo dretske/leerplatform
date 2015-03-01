@@ -1,6 +1,55 @@
 var rekenenDirectives = angular.module('rekenenDirectives');
 
-rekenenDirectives.directive("imageSelector", ['$window', '$document', function ($window, $document) {
+rekenenDirectives.config(function($provide){
+    $provide.decorator('ngTranscludeDirective', ['$delegate', function($delegate) {
+        // Remove the original directive
+        $delegate.shift();
+        return $delegate;
+    }]);
+})
+rekenenDirectives.directive( 'ngTransclude', function() {
+  return {
+    restrict: 'EAC',
+    link: function( $scope, $element, $attrs, controller, $transclude ) {
+      if (!$transclude) {
+        throw minErr('ngTransclude')('orphan',
+         'Illegal use of ngTransclude directive in the template! ' +
+         'No parent directive that requires a transclusion found. ' +
+         'Element: {0}',
+         startingTag($element));
+      }
+      
+      var iScopeType = $attrs['ngTransclude'] || 'sibling';
+  
+      switch ( iScopeType ) {
+        case 'sibling':
+          $transclude( function( clone ) {
+            $element.empty();
+            $element.append( clone );
+          });
+          break;
+        case 'parent':
+          $transclude( $scope, function( clone ) {
+            $element.empty();
+            $element.append( clone );
+          });
+          break;
+        case 'child':
+          var iChildScope = $scope.$new();
+          $transclude( iChildScope, function( clone ) {
+            $element.empty();
+            $element.append( clone );
+            $element.on( '$destroy', function() {
+              iChildScope.$destroy();
+            });            
+          });
+          break;
+      }
+    }
+  };
+});
+
+rekenenDirectives.directive("sliderSelector", ['$window', '$document', function ($window, $document) {
 
         var linkFunction = function (scope, element, attributes) {
             var overDragInPixels = 100;
@@ -8,25 +57,25 @@ rekenenDirectives.directive("imageSelector", ['$window', '$document', function (
                     currentDragDistanceX = 0, dragStartX = 0;
             var spacing = scope.spacing ? scope.spacing : 0;
             var imageWithSpacingWidth = scope.imageWidth + spacing;
-            var maxX = (scope.images.length -1) * imageWithSpacingWidth;
+            var maxX = (scope.items.length -1) * imageWithSpacingWidth;
             var snapPercentage = 0.2;
             
             function totalWidth() {
-                return element.find('.imageSelectorWrapper').first().width();
+                return element.find('.sliderSelectorWrapper').first().width();
             }
             
             var baseX = Math.floor((totalWidth() - scope.imageWidth)/2);
             
-            var imagesDiv = element.find('.imageSelector').first();
-            imagesDiv.css({
+            var itemsDiv = element.find('.sliderSelector').first();
+            itemsDiv.css({
                 position: 'relative',
                 left: baseX + 'px'
             });
             
-            imagesDiv.on('mousedown', function(event) {
+            itemsDiv.on('mousedown', function(event) {
                event.preventDefault();
                dragStartX = event.pageX;
-               imagesDiv.css({
+               itemsDiv.css({
                     transition: 'none'
                });
                $document.on('mousemove', mousemove);
@@ -38,7 +87,7 @@ rekenenDirectives.directive("imageSelector", ['$window', '$document', function (
                 
                 moveOffsetXBy(currentDragDistanceX, true);
                 
-                imagesDiv.css({
+                itemsDiv.css({
                     transform: 'translateX(' + offsetX + 'px)'
                 });
             }
@@ -49,7 +98,7 @@ rekenenDirectives.directive("imageSelector", ['$window', '$document', function (
                 setOffsetToImageStart();
                 previousOffsetX = offsetX;
                 scope.onSelected()(getSelectedImage());
-                imagesDiv.css({
+                itemsDiv.css({
                     transition: '1s',
                     transform: 'translateX(' + offsetX + 'px)'
                 });
@@ -105,24 +154,24 @@ rekenenDirectives.directive("imageSelector", ['$window', '$document', function (
 
             function getSelectedImage() {
                 var selectedIndex = Math.abs(offsetX / imageWithSpacingWidth);
-                return scope.images[selectedIndex];
+                return scope.items[selectedIndex];
             }
             
         };
 
         return {
             restrict: "E",
+            transclude: true,
             scope: {
-                images: '=',
+                items: '=',
                 imageWidth: '=',
                 spacing: '=',
                 onSelected: '&'
             },
             link: linkFunction,
-            template: '<div class="imageSelectorWrapper"> \
-                            <div class="imageSelector"> \
-                                <div ng-repeat="image in images" class="imageSelectorItem"> \
-                                    <img src="{{image.path}}" width="{{imageWidth}}" style="margin-right: {{spacing}}px"/> \
+            template: '<div class="sliderSelectorWrapper"> \
+                            <div class="sliderSelector"> \
+                                <div ng-repeat="item in items" class="sliderSelectorItem" ng-transclude="child"> \
                                 </div> \
                             </div> \
                         </div>'

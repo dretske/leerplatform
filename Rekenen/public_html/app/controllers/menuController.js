@@ -22,9 +22,9 @@ rekenenControllers.controller('MenuCtrl',
     ['$scope', '$location', function ($scope, $location) {
             
        $scope.items = [
-           {id: 0, path: 'images/rekenenMenuItem.png'}, 
-           {id: 1, path: 'images/lezenMenuItem.png'}, 
-           {id: 2, path: 'images/schrijvenMenuItem.png'}
+           {id: 0, titel: 'Rekenen', path: 'images/rekenenMenuItem.png'}, 
+           {id: 1, titel: 'Lezen', path: 'images/lezenMenuItem.png'}, 
+           {id: 2, titel: 'Schrijven', path: 'images/schrijvenMenuItem.png'}
        ];
        
        $scope.itemSelected = function(item) {

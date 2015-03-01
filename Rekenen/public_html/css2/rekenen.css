@@ -6,12 +6,6 @@
 body {
 }
 
-.menu {
-    background-image: url("../images/mainMenuBackground.png");
-    width: 1024px;
-    height: 768px;
-}
-
 #vergelijking {
     margin: 0 auto;
     display: inline-block;
@@ -243,12 +237,21 @@ img.vergelijkingElementTeken {
     width: 15vw;
 }
 
+.menu {
+    background-image: url("../images/mainMenuBackground.png");
+    width: 1024px;
+    height: 768px;
+}
+
 .menuTitle {
     font-family: Chalk;
-    text-decoration: underline; 
-    color: white;
-    font-size: 17vh;
+    color: blue;
+    font-size: 14vh;
     text-align: center;
+    border: 4px solid blue;
+    border-radius: 30pt;
+    background-color: rgba(255,255,255,0.6);
+    margin: 10px 10px 20px;
 }
 
 .menuItem {
@@ -256,6 +259,20 @@ img.vergelijkingElementTeken {
     color: white;
     font-size: 15vh;
     text-align: center;
+}
+
+.menuItemTitle {
+    font-family: Chalk;
+    font-size: 5vh;
+    position: absolute;
+    top: 20px;
+    left: 134px;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.8);
+    border: 4px solid red;
+    border-radius: 20pt;
+    text-align: center;
+    width: 300px;
 }
 
 #opgave.tellen {
