@@ -1,4 +1,4 @@
-var rekenenDirectives = angular.module('rekenenDirectives', []);
+var rekenenDirectives = angular.module('rekenenDirectives');
 
 rekenenDirectives.directive("divConnector", ['$window', '$document', function ($window, $document) {
 

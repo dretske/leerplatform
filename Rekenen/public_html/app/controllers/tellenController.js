@@ -2,14 +2,11 @@
 
 var rekenenControllers = angular.module('rekenenControllers');
 
-rekenenControllers.controller('RekenenCtrl', 
-    ['$scope', '$routeParams', 'EquationExerciseGenerator', '$timeout', '$modal', '$location', '$log',
-    function ($scope, $routeParams, EquationExerciseGenerator, $timeout, $modal, $location, $log) {
+rekenenControllers.controller('TellenCtrl', 
+    ['$scope', '$routeParams', 'CountingExerciseGenerator', '$timeout', '$modal', '$location',
+    function ($scope, $routeParams, CountingExerciseGenerator, $timeout, $modal, $location) {
 
         var max = $routeParams.max;
-        var subtraction = $routeParams.subtraction === undefined ? true : false;
-        var graphical = $routeParams.graphical === undefined ? false : true;
-        var withoutZero = graphical || ($routeParams.withoutZero === undefined ? false : true);
         
         $scope.numberOfExercises = 10;
         $scope.successMessage = null;
@@ -18,7 +15,8 @@ rekenenControllers.controller('RekenenCtrl',
         $scope.exercises = [];
         $scope.currentExerciseIndex = 0;
         $scope.currentExercise = null;
-        $scope.graphicStyle = $routeParams.style === undefined ? 'apple' : $routeParams.style;
+        $scope.showSolution = false;
+        $scope.options = false;
         
         var easter_egg = new Konami(
             function() { 
@@ -29,14 +27,14 @@ rekenenControllers.controller('RekenenCtrl',
         );
         
         $scope.toggleShowSolution = function () {
-            $scope.currentExercise.showSolution = true;
-        }
+            $scope.showSolution = true;
+        };
         
         $scope.nextExercise = function () {
             if ($scope.currentExerciseIndex < $scope.numberOfExercises-1) {
                 $scope.currentExerciseIndex++;
                 $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
-                $scope.currentExercise.showSolution = false;
+                $scope.showSolution = false;
             } else {
                 openResultaatPopup();
             }
@@ -44,13 +42,13 @@ rekenenControllers.controller('RekenenCtrl',
 
         $scope.generateExercises = function () {
             $scope.score = 0;
-            $scope.exercises = EquationExerciseGenerator.generateExercises($scope.numberOfExercises, withoutZero, max, subtraction);
+            $scope.exercises = CountingExerciseGenerator.generateExercises($scope.numberOfExercises, max, 5);
             $scope.currentExerciseIndex = -1;
             $scope.nextExercise();
         };
         
         $scope.submitAnswer = function (data) {
-            var solutionCorrect = $scope.currentExercise.enterAnswer(data);
+            var solutionCorrect = data === $scope.currentExercise.solution;
             var timeToNextExercise;
             if (solutionCorrect) {
                 $scope.successMessage = 'Proficiat!';
@@ -69,29 +67,15 @@ rekenenControllers.controller('RekenenCtrl',
         
         $scope.footerClass = function() {
             if ($scope.currentExercise !== null) {
-                return "rows-" + Math.ceil($scope.currentExercise.options.length / 6);
+                return "rows-" + Math.ceil($scope.options.length / 6);
             }
             return "";
-        }
+        };
         
         $scope.isNumeric = function(elem) {
             return typeof elem === "number";
-        }
-        
-        $scope.vergelijkingElementTemplate = function() {
-            if (graphical) {
-                return "vergelijkingElement_images.html";
-            }
-            return "vergelijkingElement.html";
-        }
-        
-        $scope.antwoordenTemplate = function() {
-            if (graphical) {
-                return "antwoorden_images.html";
-            }
-            return "antwoorden.html";
-        }
-        
+        };
+
         function openResultaatPopup() {
             var modalInstance = $modal.open({
                 templateUrl: 'oefeningen/resultaatPopup.html',
@@ -123,27 +107,3 @@ rekenenControllers.controller('RekenenCtrl',
         };
        
     }]);
-
-rekenenControllers.controller('ResultaatCtrl', ['$scope', '$modalInstance', 'score', 'totaal', function ($scope, $modalInstance, score, totaal) {
-    $scope.score = score; 
-    $scope.totaal = totaal;
-    
-    $scope.toonSter1 = function() {
-        return (score/totaal) >= 0.8;
-    };
-    $scope.toonSter2 = function() {
-        return (score/totaal) >= 0.9;
-    };
-    $scope.toonSter3 = function() {
-        return score === totaal;
-    };
-    
-    $scope.terug = function() {
-        $modalInstance.close('terug');
-    };
-    
-    $scope.opnieuw = function() {
-        $modalInstance.close('opnieuw');
-    };
-    
-}]);

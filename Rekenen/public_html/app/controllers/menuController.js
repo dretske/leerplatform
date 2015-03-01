@@ -17,4 +17,19 @@ rekenenControllers.controller('MenuCtrl',
            $location.url('/' + item);
        };
     }]);
+
+ rekenenControllers.controller('Menu2Ctrl', 
+    ['$scope', '$location', function ($scope, $location) {
+            
+       $scope.items = [
+           {id: 0, path: 'images/rekenenMenuItem.png'}, 
+           {id: 1, path: 'images/lezenMenuItem.png'}, 
+           {id: 2, path: 'images/schrijvenMenuItem.png'}
+       ];
+       
+       $scope.itemSelected = function(item) {
+           console.log('item selected = ' + item.id);
+       };
+       
+    }]);
  

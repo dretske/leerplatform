@@ -4,8 +4,12 @@
 }
 
 body {
-    background-image: url("../images/blackboardSmooth.jpg");
-    background-repeat: repeat;
+}
+
+.menu {
+    background-image: url("../images/mainMenuBackground.png");
+    width: 1024px;
+    height: 768px;
 }
 
 #vergelijking {
@@ -237,10 +241,6 @@ img.vergelijkingElementTeken {
 
 .ster1, .ster2, .ster3 {
     width: 15vw;
-}
-
-.menu {
-    
 }
 
 .menuTitle {

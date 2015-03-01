@@ -1,0 +1,10 @@
+.imageSelectorWrapper {
+    overflow: hidden;
+    width: 100%;
+}
+.imageSelector {
+    white-space: nowrap;
+}
+.imageSelectorItem {
+    display: inline-block;
+}
