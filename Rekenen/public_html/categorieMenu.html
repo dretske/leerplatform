@@ -1,0 +1,17 @@
+<div class="menu categorieMenu container">
+    <div class="row">
+        <div class="menuTitle">Kies een vak</div>
+    </div>
+    <div class="row">
+        <slider-selector items="items" 
+                        on-selected="itemSelected" 
+                        image-width="568"
+                        spacing="50">
+            <img src="{{item.path}}" width="{{imageWidth}}" style="margin-right: {{spacing}}px"/>
+            <div class="menuItemTitle centeredInParent">{{item.titel}}</div>
+        </slider-selector>
+    </div>
+    <div class="row col-md-offset-4 col-md-8">
+        <button type="button" class="centeredInParent button">Ik kies deze!</button>
+    </div>
+</div>

@@ -23,16 +23,16 @@ rekenenApp.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'oefeningen/rekenen/tellen.html',
                 controller: 'TellenCtrl'
             })
-            .when('/menu', {
-                templateUrl: 'menu.html',
-                controller: 'MenuCtrl'
+            .when('/oefeningen', {
+                templateUrl: 'oefeningenMenu.html',
+                controller: 'OefeningenMenuCtrl'
             })
-            .when('/menu2', {
-                templateUrl: 'menu2.html',
-                controller: 'Menu2Ctrl'
+            .when('/categorie', {
+                templateUrl: 'categorieMenu.html',
+                controller: 'CategorieMenuCtrl'
             })
             .otherwise({
-                redirectTo: '/menu2'
+                redirectTo: '/categorie'
             });
 
     // configure html5 to get links working on jsfiddle

@@ -1,0 +1,11 @@
+.sliderSelectorWrapper {
+    overflow: hidden;
+    width: 100%;
+}
+.sliderSelector {
+    white-space: nowrap;
+}
+.sliderSelectorItem {
+    display: inline-block;
+    position: relative;
+}

@@ -3,7 +3,12 @@
     src: url("../fonts/appleberry_with_cyrillic.ttf");
 }
 
-body {
+.rekenenContainer {
+    background-image: url("../images/blackboardSmooth.jpg");
+    background-repeat: repeat;
+}
+
+.rekenenMenu {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
 }
@@ -237,25 +242,6 @@ img.vergelijkingElementTeken {
 
 .ster1, .ster2, .ster3 {
     width: 15vw;
-}
-
-.menu {
-    
-}
-
-.menuTitle {
-    font-family: Chalk;
-    text-decoration: underline; 
-    color: white;
-    font-size: 17vh;
-    text-align: center;
-}
-
-.menuItem {
-    font-family: Chalk;
-    color: white;
-    font-size: 15vh;
-    text-align: center;
 }
 
 #opgave.tellen {

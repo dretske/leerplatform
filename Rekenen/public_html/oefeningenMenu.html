@@ -1,0 +1,27 @@
+<div class="menu oefeningenMenu {{categorie.id}} container">
+    <div class="row">
+        <div class="menuTitle">{{categorie.titel}}</div>
+    </div>
+    <div class="row">
+        <slider-selector items="items" 
+                        on-selected="itemSelected" 
+                        image-width="500"
+                        spacing="50">
+            <div class="oefeningenMenuItem" style="margin-right: {{spacing}}px">
+                <div class="titel">
+                    {{item.titel}}
+                </div>
+                <div class="subtitel">
+                    {{item.subtitel}}
+                </div>
+                <div class="niveau">
+                    {{item.niveau}}
+                </div>
+            </div>
+        </slider-selector>
+    </div>
+    <div class="row col-md-offset-4 col-md-8">
+        <button type="button" class="centeredInParent button">Ik kies deze!</button>
+    </div>
+    <i class="fa fa-5x fa-arrow-left"></i>
+</div>

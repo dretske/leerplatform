@@ -69,3 +69,91 @@ html, body {
     width: 100%;
     display: table;
 }
+/* ************************
+          MENU
+*************************** */
+
+.menu {
+    width: 1024px;
+    height: 768px;
+}
+
+.categorieMenu {
+    background-image: url("../images/mainMenuBackground.png");
+}
+
+.oefeningenMenu.rekenen {
+    background-image: url("../images/rekenenBackground.gif");
+}
+
+.menuTitle {
+    font-family: Chalk;
+    color: blue;
+    font-size: 14vh;
+    text-align: center;
+    border: 4px solid blue;
+    border-radius: 30pt;
+    background-color: rgba(255,255,255,0.8);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.menuItem {
+    font-family: Chalk;
+    color: white;
+    font-size: 15vh;
+    text-align: center;
+}
+
+.menuItemTitle {
+    font-family: Chalk;
+    font-size: 5vh;
+    position: absolute;
+    top: 20px;
+    left: 134px;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.8);
+    border: 4px solid red;
+    border-radius: 20pt;
+    text-align: center;
+    width: 300px;
+}
+
+.oefeningenMenuItem {
+    width: 500px;
+    height: 400px;
+    background-color: white;
+    font-family: "Gill Sans","Gill Sans MT",Calibri,sans-serif;
+    text-align: center;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+}
+
+.oefeningenMenuItem .titel {
+    background-color: lightblue;
+    font-size: 7vh;
+    flex-grow: 1;
+}
+
+.oefeningenMenuItem .subtitel {
+    font-size: 12vh;
+    flex-grow: 1;
+}
+
+.oefeningenMenuItem .niveau {
+    background-color: lightgrey;
+    font-size: 8vh;
+    flex-grow: 1;
+}
+
+.button {
+    background-color: rgba(255,255,255,0.8);
+    border: 4px solid red;
+    border-radius: 20pt;
+    text-align: center;
+    padding: 20px;
+    font-family: Chalk;
+    font-size: 5vh;
+}

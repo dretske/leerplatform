@@ -6,7 +6,7 @@ rekenenDirectives.config(function($provide){
         $delegate.shift();
         return $delegate;
     }]);
-})
+});
 rekenenDirectives.directive( 'ngTransclude', function() {
   return {
     restrict: 'EAC',
