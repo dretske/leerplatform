@@ -56,9 +56,15 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
             var minX = 0, previousOffsetX = 0, offsetX = 0, 
                     currentDragDistanceX = 0, dragStartX = 0;
             var spacing = scope.spacing ? scope.spacing : 0;
-            var imageWithSpacingWidth = scope.imageWidth + spacing;
-            var maxX = (scope.items.length -1) * imageWithSpacingWidth;
+            var itemWithSpacingWidth = scope.imageWidth + spacing;
+            var maxX = (scope.items.length -1) * itemWithSpacingWidth;
             var snapPercentage = 0.2;
+            var selectedItemIndex = 0;
+            
+            if (scope.selectedItemIndex) {
+                selectedItemIndex = scope.selectedItemIndex;
+                previousOffsetX = offsetX = -1 * selectedItemIndex * itemWithSpacingWidth;
+            }
             
             function totalWidth() {
                 return element.find('.sliderSelectorWrapper').first().width();
@@ -69,11 +75,15 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
             var itemsDiv = element.find('.sliderSelector').first();
             itemsDiv.css({
                 position: 'relative',
-                left: baseX + 'px'
+                left: baseX + 'px',
+                transform: 'translateX(' + offsetX + 'px)'
             });
             
             itemsDiv.on('mousedown', function(event) {
                event.preventDefault();
+               if (typeof scope.onDragStart() !== 'undefined') {
+                  scope.onDragStart()();
+               }
                dragStartX = event.pageX;
                itemsDiv.css({
                     transition: 'none'
@@ -106,19 +116,19 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
             }
             
             function setOffsetToImageStart() {
-                if (distanceToNextImageStartLessThan((1-snapPercentage) * imageWithSpacingWidth)) {
+                if (distanceToNextImageStartLessThan((1-snapPercentage) * itemWithSpacingWidth)) {
                     if (draggingLeft()) {
                         moveOffsetXBy(currentDragDistanceX - remainingDragToNextImageStart(), false);
                     } else {
                         moveOffsetXBy(currentDragDistanceX + remainingDragToNextImageStart(), false);
                     }
                 } else {
-                    moveOffsetXBy(currentDragDistanceX - currentDragDistanceX % imageWithSpacingWidth, false);
+                    moveOffsetXBy(currentDragDistanceX - currentDragDistanceX % itemWithSpacingWidth, false);
                 }
             }
             
             function remainingDragToNextImageStart() {
-                return imageWithSpacingWidth - Math.abs(currentDragDistanceX % imageWithSpacingWidth);
+                return itemWithSpacingWidth - Math.abs(currentDragDistanceX % itemWithSpacingWidth);
             }
             
             function distanceToNextImageStartLessThan(maxDistance) {
@@ -129,11 +139,11 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
             }
             
             function nextOffsetToLeft() {
-                return offsetX - (imageWithSpacingWidth - (Math.abs(offsetX % imageWithSpacingWidth)));
+                return offsetX - (itemWithSpacingWidth - (Math.abs(offsetX % itemWithSpacingWidth)));
             }
             
             function nextOffsetToRight() {
-                return offsetX + (imageWithSpacingWidth - (Math.abs(offsetX % imageWithSpacingWidth)));
+                return offsetX + (itemWithSpacingWidth - (Math.abs(offsetX % itemWithSpacingWidth)));
             }
             
             function draggingLeft() {
@@ -153,7 +163,7 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
             }
 
             function getSelectedImage() {
-                var selectedIndex = Math.abs(offsetX / imageWithSpacingWidth);
+                var selectedIndex = Math.abs(offsetX / itemWithSpacingWidth);
                 return scope.items[selectedIndex];
             }
             
@@ -166,6 +176,8 @@ rekenenDirectives.directive("sliderSelector", ['$window', '$document', function 
                 items: '=',
                 imageWidth: '=',
                 spacing: '=',
+                selectedItemIndex: '=',
+                onDragStart: '&',
                 onSelected: '&'
             },
             link: linkFunction,

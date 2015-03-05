@@ -1,17 +1,25 @@
-<div class="menu categorieMenu container">
-    <div class="row">
+<div class="menu categorieMenu">
+    <div class="titelBalk">
         <div class="menuTitle">Kies een vak</div>
     </div>
-    <div class="row">
+    <div class="oefeningenBalk">
         <slider-selector items="items" 
                         on-selected="itemSelected" 
                         image-width="568"
-                        spacing="50">
+                        spacing="50"
+                        selected-item-index="selectedItemIndex">
             <img src="{{item.path}}" width="{{imageWidth}}" style="margin-right: {{spacing}}px"/>
             <div class="menuItemTitle centeredInParent">{{item.titel}}</div>
         </slider-selector>
     </div>
-    <div class="row col-md-offset-4 col-md-8">
-        <button type="button" class="centeredInParent button">Ik kies deze!</button>
+    <div class="knoppenBalk">
+        <div class="links">
+            <i class="fa fa-5x fa-arrow-left"></i>
+        </div>
+        <div class="centraal">
+            <button type="button" class="centeredInParent button" ng-click="openOefeningen()">Verder</button>
+        </div>
+        <div class="rechts">
+        </div>
     </div>
 </div>
