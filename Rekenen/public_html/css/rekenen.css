@@ -3,9 +3,16 @@
     src: url("../fonts/appleberry_with_cyrillic.ttf");
 }
 
+.lezenContainer {
+    background-image: url("../images/blackboardSmooth.jpg");
+    background-repeat: repeat;
+    flex: 1;
+}
+
 .rekenenContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
+    flex: 1;
 }
 
 .rekenenMenu {
@@ -212,6 +219,9 @@ img.vergelijkingElementTeken {
     color: white;
     font-family: Chalk, verdana;
     font-size: 12vw;
+}   
+
+.antwoord.getal {
     width: 150px;
 }
 
@@ -224,6 +234,14 @@ img.vergelijkingElementTeken {
     width: 160px;
     height: 160px;
 } 
+
+.antwoord.juist {
+    color: yellowgreen;
+}
+
+.antwoord.fout {
+    color: red;
+}
 
 .rows-2 .antwoord {
     width: 160px;
@@ -242,6 +260,12 @@ img.vergelijkingElementTeken {
 
 .ster1, .ster2, .ster3 {
     width: 15vw;
+}
+
+.lezenContainer .opgave {
+    font-family: Chalk, Verdana, Geneva, sans-serif;
+    font-size: 12vh;
+    color: white;
 }
 
 #opgave.tellen {

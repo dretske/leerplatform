@@ -48,7 +48,10 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
             };
         };
 
-        function generateExercises(numberOfExercises, withoutZero, maxConstantsSize, subtraction) {
+        function generateExercises(numberOfExercises, options) {
+            var withoutZero = options.withoutZero;
+            var maxConstantsSize = options.maxConstantsSize;
+            var subtraction = options.subtraction;
             var exercises = [];
             
             for (var i = 0; i < numberOfExercises; i++) {

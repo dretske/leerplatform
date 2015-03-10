@@ -1,6 +1,6 @@
-var rekenenDirectives = angular.module('rekenenDirectives');
+var mainDirectives = angular.module('mainDirectives');
 
-rekenenDirectives.directive("imageGrid", ['$window', '$document', function ($window, $document) {
+mainDirectives.directive("imageGrid", ['$window', '$document', function ($window, $document) {
         
         var coordinatesMap = [
         /* 1 */    [{x: 3, y: 3}],

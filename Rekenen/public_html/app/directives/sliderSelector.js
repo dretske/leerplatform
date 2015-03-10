@@ -1,13 +1,13 @@
-var rekenenDirectives = angular.module('rekenenDirectives');
+var mainDirectives = angular.module('mainDirectives');
 
-rekenenDirectives.config(function($provide){
+mainDirectives.config(function($provide){
     $provide.decorator('ngTranscludeDirective', ['$delegate', function($delegate) {
         // Remove the original directive
         $delegate.shift();
         return $delegate;
     }]);
 });
-rekenenDirectives.directive( 'ngTransclude', function() {
+mainDirectives.directive( 'ngTransclude', function() {
   return {
     restrict: 'EAC',
     link: function( $scope, $element, $attrs, controller, $transclude ) {
@@ -49,7 +49,7 @@ rekenenDirectives.directive( 'ngTransclude', function() {
   };
 });
 
-rekenenDirectives.directive("sliderSelector", ['$window', '$document', function ($window, $document) {
+mainDirectives.directive("sliderSelector", ['$window', '$document', function ($window, $document) {
 
         var linkFunction = function (scope, element, attributes) {
             var overDragInPixels = 100;

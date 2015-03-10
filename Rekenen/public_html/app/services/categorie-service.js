@@ -2,9 +2,9 @@
 
 /* Services */
 
-var rekenenServices = angular.module('rekenenServices');
+var mainServices = angular.module('mainServices');
 
-rekenenServices.factory('CategorieService', [
+mainServices.factory('CategorieService', [
     function () {
         
         var categorieen = [

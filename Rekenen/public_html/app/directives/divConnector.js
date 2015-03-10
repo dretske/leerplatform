@@ -1,6 +1,6 @@
-var rekenenDirectives = angular.module('rekenenDirectives');
+var mainDirectives = angular.module('mainDirectives');
 
-rekenenDirectives.directive("divConnector", ['$window', '$document', function ($window, $document) {
+mainDirectives.directive("divConnector", ['$window', '$document', function ($window, $document) {
 
         var linkFunction = function (scope, element, attributes) {
 
