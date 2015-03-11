@@ -79,8 +79,23 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                 transform: 'translateX(' + offsetX + 'px)'
             });
             
-            itemsDiv.on('mousedown', function(event) {
+            function touchstart(event) {
+                if (event.originalEvent.targetTouches.length === 1) {
+                    var touch = event.originalEvent.targetTouches[0];
+                    dragstart(touch);
+                    $document.on('touchmove', touchmove);
+                    $document.on('touchend', touchend);
+                }
+            }
+            
+            function mousedown(event) {
                event.preventDefault();
+               dragstart(event);
+               $document.on('mousemove', mousemove);
+               $document.on('mouseup', mouseup);
+            }
+            
+            function dragstart(event) {
                if (typeof scope.onDragStart() !== 'undefined') {
                   scope.onDragStart()();
                }
@@ -88,11 +103,9 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                itemsDiv.css({
                     transition: 'none'
                });
-               $document.on('mousemove', mousemove);
-               $document.on('mouseup', mouseup);
-            });
+            }
             
-            function mousemove(event) {
+            function dragmove(event) {
                 currentDragDistanceX = event.pageX - dragStartX;
                 
                 moveOffsetXBy(currentDragDistanceX, true);
@@ -102,9 +115,7 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                 });
             }
             
-            function mouseup() {
-                $document.off('mousemove', mousemove);
-                $document.off('mouseup', mouseup);
+            function dragend() {
                 setOffsetToImageStart();
                 previousOffsetX = offsetX;
                 scope.onSelected()(getSelectedImage());
@@ -112,9 +123,36 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                     transition: '1s',
                     transform: 'translateX(' + offsetX + 'px)'
                 });
-                $document.off('mouseup', mouseup);
             }
             
+            function touchmove(event) {
+                if (event.originalEvent.targetTouches.length === 1) {
+                    var touch = event.originalEvent.targetTouches[0];
+                    dragmove(touch);
+                }
+            }
+            
+            function mousemove(event) {
+                dragmove(event);
+            }
+            
+            function touchend() {
+                $document.off('touchmove', touchmove);
+                $document.off('touchend', touchend);
+                dragend();
+                $document.off('touchend', touchend);
+            }
+            
+            function mouseup() {
+                $document.off('mousemove', mousemove);
+                $document.off('mouseup', mouseup);
+                dragend();
+                $document.off('mouseup', mouseup);
+            }
+                        
+            itemsDiv.on('mousedown', mousedown);
+            itemsDiv.on('touchstart', touchstart);
+
             function setOffsetToImageStart() {
                 if (distanceToNextImageStartLessThan((1-snapPercentage) * itemWithSpacingWidth)) {
                     if (draggingLeft()) {

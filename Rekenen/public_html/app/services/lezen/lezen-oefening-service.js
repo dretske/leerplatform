@@ -4,7 +4,7 @@
 
 var lezenServices = angular.module('lezenServices');
 
-lezenServices.factory('LezenOefeningService', ['MathServices', function (MathServices) {
+lezenServices.factory('LezenOefeningService', ['CommonServices', function (CommonServices) {
     
         var waarValsOpgaves= [
             {vraag: 'De bal is rond', waar: true},
@@ -81,12 +81,12 @@ lezenServices.factory('LezenOefeningService', ['MathServices', function (MathSer
         function generateExercises(numberOfExercises, options) {
             var exercises = [];
             
-            var waarValsOefeningenCopy = cloneArray(waarValsOpgaves);
+            var waarValsOefeningenCopy = CommonServices.cloneArray(waarValsOpgaves);
             
             for (var i=0; i<numberOfExercises; i++) {
-                var index = MathServices.randomNumberBetween(0,waarValsOefeningenCopy.length-1);
+                var index = CommonServices.randomNumberBetween(0,waarValsOefeningenCopy.length-1);
                 exercises.push(toWaarValsOefening(waarValsOefeningenCopy[index]));
-                waarValsOefeningenCopy = cloneRemovingElementAtIndex(waarValsOefeningenCopy, index);
+                waarValsOefeningenCopy = CommonServices.cloneArrayRemovingElementAtIndex(waarValsOefeningenCopy, index);
             }
             
             return exercises;
@@ -111,25 +111,6 @@ lezenServices.factory('LezenOefeningService', ['MathServices', function (MathSer
                 }
             };
         }
-        
-        function cloneRemovingElementAtIndex(base, index) {
-            var newArray = [];
-            for(var i=0; i < index; i++) {
-                newArray[i] = base[i];
-            }
-            for(var i=index+1; i < base.length; i++) {
-                newArray[i-1] = base[i];
-            }
-            return newArray;
-        };
-        
-        function cloneArray(base) {
-            var newArray = [];
-            for(var i = 0; i < base.length; i++) {
-                newArray[i] = base[i];
-            }
-            return newArray;
-        };
         
         return {
             generateExercises: generateExercises

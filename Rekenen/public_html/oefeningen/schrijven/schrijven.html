@@ -1,0 +1,34 @@
+<div id="container" class="schrijvenContainer" ng-init="generateExercises()">
+    <div class="woord">
+        <img src="images/woordjes/{{currentExercise.solution}}.png" height="250" />
+    </div>
+    <div class="letterplaatsen">
+        <div class="letterplaats" 
+             ng-repeat="letter in lettersInOplossing() track by $index"
+             data-drop="true" ng-model='lettersInAntwoord' jqyoui-droppable="{index: {{$index}}}">
+            <div class="antwoord letter" 
+                 ng-show="lettersInAntwoord[$index]" 
+                 data-drag="{{lettersInAntwoord[$index].drag}}"
+                 ng-show="lettersInAntwoord[$index].value"
+                 data-jqyoui-options="{revert: 'invalid'}"
+                 ng-model="lettersInAntwoord" 
+                 jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}"
+                 ng-class="{juist : lettersInAntwoord[$index].correct || currentExercise.showSolution, fout : currentExercise.score === 0 && !lettersInAntwoord[$index].correct}"
+                 >
+                {{lettersInAntwoord[$index].value}}
+            </div>
+        </div>
+    </div>
+    <div class="knoppen">
+        <button class="button-ok" ng-click="verzendAntwoord()" ng-show="showOkButton()" ng-disabled="!enableOkButton">Ok</button>
+    </div>
+    <div class="letterplaatsen">
+        <div class="letterplaats" ng-repeat="keuze in draggableKeuzes track by $index" data-drop="true" ng-model='draggableKeuzes' jqyoui-droppable="{index: {{$index}}}">
+            <div class="antwoord letter" data-drag="{{keuze.drag}}" 
+                 data-jqyoui-options="{revert: 'invalid'}" 
+                 ng-model="draggableKeuzes" 
+                 jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}"
+                  ng-hide="!keuze.value">{{keuze.value}}</div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-var OefeningCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $modal, $location) {
+var OefeningCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $modal, $location, callbacks) {
 
         var oefeningId = $routeParams.oefeningId;
         var categorieId = $routeParams.categorie;
@@ -24,6 +24,7 @@ var OefeningCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $
 
             $scope.toggleShowSolution = function () {
                 $scope.currentExercise.showSolution = true;
+                callbacks.showSolution();
             };
 
             $scope.nextExercise = function () {
@@ -31,6 +32,9 @@ var OefeningCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $
                     $scope.currentExerciseIndex++;
                     $scope.currentExercise = $scope.exercises[$scope.currentExerciseIndex];
                     $scope.currentExercise.showSolution = false;
+                    if (callbacks && callbacks.nextExercise) {
+                        callbacks.nextExercise($scope.currentExercise);
+                    }
                 } else {
                     openResultaatPopup();
                 }

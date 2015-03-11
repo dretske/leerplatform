@@ -4,8 +4,8 @@
 
 var rekenenServices = angular.module('rekenenServices');
 
-rekenenServices.factory('CountingExerciseGenerator', ['MathServices',
-    function (MathServices) {
+rekenenServices.factory('CountingExerciseGenerator', ['CommonServices',
+    function (CommonServices) {
         
         function generateExercises(numberOfExercises, max, maxOptions) {
             var exercises = [];
@@ -35,7 +35,7 @@ rekenenServices.factory('CountingExerciseGenerator', ['MathServices',
         }
 
         function generateExercise(max, maxOptions) {
-            var solution = MathServices.randomNumberBetween(1, max);
+            var solution = CommonServices.randomNumberBetween(1, max);
             
             var options = generateOptions(max, solution, maxOptions);
             
@@ -66,7 +66,7 @@ rekenenServices.factory('CountingExerciseGenerator', ['MathServices',
             var smallestPossibleOption = Math.max(solution - (maxOptions - 1), 1);
             var largestPossibleOption = Math.min(solution + (maxOptions - 1), max);
             
-            var smallestOption = MathServices.randomNumberBetween(smallestPossibleOption, largestPossibleOption - (numberOfOptions-1));
+            var smallestOption = CommonServices.randomNumberBetween(smallestPossibleOption, largestPossibleOption - (numberOfOptions-1));
             for (var i = 0; i < numberOfOptions; i++) {
                 options.push(smallestOption + i);
             }

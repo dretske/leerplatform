@@ -4,8 +4,8 @@
 
 var rekenenServices = angular.module('rekenenServices');
 
-rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
-    function ($log, MathServices) {
+rekenenServices.factory('EquationExerciseGenerator', ['$log', 'CommonServices',
+    function ($log, CommonServices) {
         var EquationDefinitionBuilder = function () {
             var lhsSize = 2;
             var rhsSize = 1;
@@ -81,17 +81,17 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
 
         function generateExercise(withoutZero, maxConstantsSize, subtraction) {
             var equation = generateEquation(withoutZero, maxConstantsSize, subtraction);
-            var replaceConstantInLeftHandSide = MathServices.randomBoolean();
+            var replaceConstantInLeftHandSide = CommonServices.randomBoolean();
             var minConstantsSize = withoutZero ? 1 : 0;
             var constantIndex;
             var solution;
             
             if (replaceConstantInLeftHandSide) {
-                constantIndex = MathServices.randomNumberBetween(0, equation.lhsConstants.length-1);
+                constantIndex = CommonServices.randomNumberBetween(0, equation.lhsConstants.length-1);
                 solution = equation.lhsConstants[constantIndex];
                 equation.lhsConstants[constantIndex] = '?';
             } else {
-                constantIndex = MathServices.randomNumberBetween(0, equation.rhsConstants.length-1);
+                constantIndex = CommonServices.randomNumberBetween(0, equation.rhsConstants.length-1);
                 solution = equation.rhsConstants[constantIndex];
                 equation.rhsConstants[constantIndex] = '?';
             }
@@ -199,10 +199,10 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
                     return allElements;
                 },
                 equals: function(other) {
-                    return MathServices.arrayEquals(this.lhsConstants, other.lhsConstants)
-                        && MathServices.arrayEquals(this.lhsOperators, other.lhsOperators)
-                        && MathServices.arrayEquals(this.rhsConstants, other.rhsConstants)
-                        && MathServices.arrayEquals(this.rhsOperators, other.rhsOperators)
+                    return CommonServices.arrayEquals(this.lhsConstants, other.lhsConstants)
+                        && CommonServices.arrayEquals(this.lhsOperators, other.lhsOperators)
+                        && CommonServices.arrayEquals(this.rhsConstants, other.rhsConstants)
+                        && CommonServices.arrayEquals(this.rhsOperators, other.rhsOperators)
                         ;
                 }
             };
@@ -219,7 +219,7 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
             
             if (numberOfConstants === 1) {
                 return {
-                    constants: [MathServices.randomNumberBetween(Math.max(minResult, minConstantValue), Math.min(maxResult, maxConstantValue))],
+                    constants: [CommonServices.randomNumberBetween(Math.max(minResult, minConstantValue), Math.min(maxResult, maxConstantValue))],
                     operators: []
                 };
             } else {
@@ -231,7 +231,7 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
                 var maxValueOfFirstConstant = Math.min(maxResult - minPossibleSumForRemainingConstants, maxConstantValue);
                 
                 // We add a constant 
-                var firstConstant = MathServices.randomNumberBetween(minValueOfFirstConstant, maxValueOfFirstConstant);
+                var firstConstant = CommonServices.randomNumberBetween(minValueOfFirstConstant, maxValueOfFirstConstant);
                 constants.push(firstConstant);
 
                 if (numberOfConstants > 1) {
@@ -244,7 +244,7 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
                         } else if (number < 0) {
                             operators.push('-');
                         } else {
-                            operators.push(MathServices.randomArrayElement(['+', '-']));
+                            operators.push(CommonServices.randomArrayElement(['+', '-']));
                         }
                         constants.push(Math.abs(number));
                     });
@@ -265,7 +265,7 @@ rekenenServices.factory('EquationExerciseGenerator', ['$log', 'MathServices',
             if (size === 1) {
                 var number;
                 do {
-                    number = Math.min(MathServices.randomNumberBetween(Math.max(minResult, minValue), maxResult), maxValue);
+                    number = Math.min(CommonServices.randomNumberBetween(Math.max(minResult, minValue), maxResult), maxValue);
                 } while (withoutZero && number === 0)
                 return [number];
             } else {

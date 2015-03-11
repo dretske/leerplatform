@@ -7,12 +7,29 @@
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
+    -webkit-box-flex: 1;
+}
+
+.schrijvenContainer {
+    background-image: url("../images/blackboardSmooth.jpg");
+    background-repeat: repeat;
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
+    flex: 1;
+    -webkit-box-flex: 1;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    justify-content: space-around;
+    -webkit-box-justify-content: space-around;
 }
 
 .rekenenContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
+    -webkit-box-flex: 1;
 }
 
 .rekenenMenu {
@@ -74,7 +91,7 @@
 
 .vergelijkingElement {
     font-family: Chalk, Verdana, Geneva, sans-serif;
-    font-size: 30vh;
+    font-size: 8em;
     padding: 15px;
     display: inline-block;
     vertical-align: top;
@@ -121,7 +138,7 @@
 } 
 
 img.vergelijkingElementTeken {
-    width: 12vw;
+    width: 8em;
 }
     
 .vergelijkingElement div {
@@ -218,7 +235,15 @@ img.vergelijkingElementTeken {
     background-color: rgba(225,225,225,0.4);
     color: white;
     font-family: Chalk, verdana;
-    font-size: 12vw;
+    font-size: 8em;
+}   
+
+.antwoord.letter {
+    height: 120px;
+    width: 100px;
+    font-size: 5.5em;
+    padding: 0px;
+    margin: 0px;
 }   
 
 .antwoord.getal {
@@ -245,8 +270,38 @@ img.vergelijkingElementTeken {
 
 .rows-2 .antwoord {
     width: 160px;
-    font-size: 8.5vw;
+    font-size: 5.5em;
  }
+
+.letterplaatsen {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
+    flex-wrap: wrap;
+    -webkit-box-flex-wrap: wrap;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.letterplaats {
+    height: 130px;
+    width: 110px;
+    padding: 5px;
+    border: 1px dashed white;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.schrijvenContainer .woord {
+    margin-bottom: 20px;
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
+    justify-content: center;
+    -webkit-justify-content: center;
+}
 
 .resultaatPopup {
     background: repeating-linear-gradient(
@@ -259,12 +314,12 @@ img.vergelijkingElementTeken {
 }
 
 .ster1, .ster2, .ster3 {
-    width: 15vw;
+    width: 10em;
 }
 
 .lezenContainer .opgave {
     font-family: Chalk, Verdana, Geneva, sans-serif;
-    font-size: 12vh;
+    font-size: 8em;
     color: white;
 }
 
@@ -275,6 +330,24 @@ img.vergelijkingElementTeken {
     margin-left: auto;
     margin-right: auto;
     position: relative;
+}
+
+.schrijvenContainer .knoppen {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
+    
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.button-ok {
+    background-color: lightgreen;
+    border: 2px solid green;
+    font-family: fantasy;
+    font-size: 3em;
+    padding: 8px 20px 8px;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
