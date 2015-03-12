@@ -1,8 +1,6 @@
 html, body {
     height: 100%;
     width: 100%;
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     padding: 0;
@@ -77,14 +75,12 @@ html, body {
 *************************** */
 
 .menu {
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     flex-direction: column;
     flex: 1;
     -webkit-box-flex: 1;
-    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
 }
 
 .categorieMenu {
@@ -132,12 +128,10 @@ html, body {
 .menu > .knoppenBalk {
     flex: 1 1 auto;
     -webkit-box-flex: 1 1 auto;
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     flex-direction: row;
-    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: row;
     justify-content: space-between;
     -webkit-justify-content: space-between;
     align-items: center;
@@ -192,12 +186,10 @@ html, body {
     font-family: "Gill Sans","Gill Sans MT",Calibri,sans-serif;
     text-align: center;
     white-space: normal;
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     flex-direction: column;
-    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
 }
 
 .oefeningenMenuItem .titel {

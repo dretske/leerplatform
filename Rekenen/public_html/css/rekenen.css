@@ -7,20 +7,18 @@
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
-    -webkit-box-flex: 1;
+    -webkit-flex: 1;
 }
 
 .schrijvenContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     flex: 1;
-    -webkit-box-flex: 1;
+    -webkit-flex: 1;
     flex-direction: column;
-    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
     justify-content: space-around;
     -webkit-box-justify-content: space-around;
 }
@@ -29,7 +27,7 @@
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
-    -webkit-box-flex: 1;
+    -webkit-flex: 1;
 }
 
 .rekenenMenu {
@@ -279,7 +277,7 @@ img.vergelijkingElementTeken {
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */    
     flex-wrap: wrap;
-    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
     justify-content: center;
     -webkit-justify-content: center;
 }
