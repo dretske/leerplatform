@@ -16,8 +16,8 @@ mainControllers.controller('OefeningenMenuCtrl',
             
        $scope.select = function() {
            $location.path('/' + selectedItem.path).search(selectedItem.pathParams);
-           $location.search('oefeningId', selectedItem.id)
-           $location.search('categorie', $scope.categorie.id)
+           $location.search('oefeningId', selectedItem.id);
+           $location.search('categorie', $scope.categorie.id);
        };
        
        $scope.terugNaarCategorieMenu = function() {

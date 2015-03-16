@@ -7,6 +7,14 @@ var mainServices = angular.module('mainServices');
 mainServices.factory('CommonServices', [
     function () {
 
+        function createAndFillArray(size, fillValue) {
+            var array = [];
+            for (var i = 0; i < size; i++) {
+                array.push(fillValue);
+            } 
+            return array;
+        }
+
         function generateNumberArray(size, minValue, maxValue) {
             var array = [];
             for (var i = 0; i < size; i++) {
@@ -77,6 +85,7 @@ mainServices.factory('CommonServices', [
         }
         
         return {
+            createAndFillArray: createAndFillArray,
             getFromKeyValueArray: getFromKeyValueArray,
             shuffleArray: shuffleArray,
             cloneArray: cloneArray,

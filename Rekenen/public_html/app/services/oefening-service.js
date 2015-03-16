@@ -17,7 +17,7 @@ mainServices.factory('OefeningService', [
                         subtitel: '1 tot 3',
                         niveau: 1, 
                         path: 'rekenen',
-                        pathParams: {max: 3, graphical: true, style: 'apple', subtraction: false}
+                        pathParams: {max: 3, graphical: 'true', style: 'apple', subtraction: 'false'}
                     }, 
                     {
                         id: 2,
@@ -25,7 +25,7 @@ mainServices.factory('OefeningService', [
                         subtitel: '1 tot 3',
                         niveau: 1,
                         path: 'rekenen',
-                        pathParams: {max: 3, graphical: true, style: 'ijsjes', subtraction: true}
+                        pathParams: {max: 3, graphical: 'true', style: 'ijsjes', subtraction: 'true'}
                     }, 
                     {
                         id: 3,
@@ -33,7 +33,7 @@ mainServices.factory('OefeningService', [
                         subtitel: '1 tot 3',
                         niveau: 2,
                         path: 'rekenen',
-                        pathParams: {max: 3, withoutZero: true}
+                        pathParams: {max: 3, withoutZero: 'true'}
                     }, 
                     {
                         id: 4,
@@ -41,7 +41,7 @@ mainServices.factory('OefeningService', [
                         subtitel: '0 tot 5',
                         niveau: 3,
                         path: 'rekenen',
-                        pathParams: {max: 5, withoutZero: false}
+                        pathParams: {max: 5, withoutZero: 'false'}
                     }, 
                     {
                         id: 5,
@@ -49,7 +49,7 @@ mainServices.factory('OefeningService', [
                         subtitel: '0 tot 8',
                         niveau: 4, 
                         path: 'rekenen',
-                        pathParams: {max: 8, withoutZero: false}
+                        pathParams: {max: 8, withoutZero: 'false'}
                     }
                 ]
             },
@@ -75,7 +75,15 @@ mainServices.factory('OefeningService', [
                         subtitel: 'Woordjes',
                         niveau: 1, 
                         path: 'schrijven',
-                        pathParams: {}
+                        pathParams: {aantalLettersGekend: 'true'}
+                    },
+                    {
+                        id: 2,
+                        titel: 'Schrijven', 
+                        subtitel: 'Woordjes',
+                        niveau: 2, 
+                        path: 'schrijven',
+                        pathParams: {aantalLettersGekend: 'false'}
                     }
                 ]
             }

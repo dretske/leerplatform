@@ -3,18 +3,23 @@
 var schrijvenControllers = angular.module('schrijvenControllers');
 
 schrijvenControllers.controller('SchrijvenCtrl', 
-    ['$scope', '$routeParams', 'SchrijvenOefeningService', '$timeout', '$modal', '$location',
-    function ($scope, $routeParams, SchrijvenOefeningService, $timeout, $modal, $location) {
+    ['$scope', '$routeParams', 'SchrijvenOefeningService', 'CommonServices', '$timeout', '$modal', '$location',
+    function ($scope, $routeParams, SchrijvenOefeningService, CommonServices, $timeout, $modal, $location) {
         
         $scope.exerciseOptions = {
         };
         
         $scope.lettersInAntwoord = [];
         $scope.draggableKeuzes = [];
+        $scope.aantalLettersGekend = $routeParams.aantalLettersGekend ? $routeParams.aantalLettersGekend === 'true' : false;
         
         var nextExerciseCallback = function(exercise) {
             $scope.draggableKeuzes = [];
-            $scope.lettersInAntwoord = [];
+            if ($scope.aantalLettersGekend) {
+                $scope.lettersInAntwoord = CommonServices.createAndFillArray(exercise.solution.length, '');
+            } else {
+                $scope.lettersInAntwoord = [''];
+            }
             for (var i=0; i < exercise.options.length; i++) {
                 var option = exercise.options[i];
                 $scope.draggableKeuzes.push({value: option, drag: true});
@@ -23,7 +28,6 @@ schrijvenControllers.controller('SchrijvenCtrl',
         };
         
         var showSolutionCallback = function() {
-            console.log('');
             for (var i=0; i < $scope.currentExercise.solution.length; i++) {
                 var letterInAntwoord = $scope.lettersInAntwoord[i];
                 var letterInOplossing = $scope.currentExercise.solution.split('')[i];
@@ -86,10 +90,6 @@ schrijvenControllers.controller('SchrijvenCtrl',
             }
         }
         
-        $scope.lettersInOplossing = function() {
-            return $scope.currentExercise.solution.split('');
-        };
-        
         function allElementsDefined(array) {
             for (var i=0; i < array.length; i++) {
                 if (typeof array[i] === 'undefined') {
@@ -99,8 +99,27 @@ schrijvenControllers.controller('SchrijvenCtrl',
             return true;
         }
         
+        function laatsteElementLeeg(array) {
+            return array[array.length-1] === null || array[array.length-1] === '';
+        }
+        
+        function pasAantalLettersInAntwoordAan() {
+            while(laatsteElementLeeg($scope.lettersInAntwoord)) {
+                $scope.lettersInAntwoord.pop();
+            }
+            $scope.lettersInAntwoord.push('');
+        }
+        
+        $scope.onNaarAntwoordDrop = function () {
+            if (!$scope.aantalLettersGekend) {
+                pasAantalLettersInAntwoordAan();
+            }
+        };
+        
         $scope.showOkButton = function() {
-          return $scope.lettersInAntwoord.length === $scope.currentExercise.solution.length && allElementsDefined($scope.lettersInAntwoord);  
+          return !$scope.aantalLettersGekend
+                  || ($scope.lettersInAntwoord.length === $scope.currentExercise.solution.length 
+                    && allElementsDefined($scope.lettersInAntwoord));  
         };
 
     }]);
