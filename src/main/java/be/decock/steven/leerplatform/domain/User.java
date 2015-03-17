@@ -1,4 +1,4 @@
-package be.decock.steven.leerplatform.user;
+package be.decock.steven.leerplatform.domain;
 
 public class User {
  

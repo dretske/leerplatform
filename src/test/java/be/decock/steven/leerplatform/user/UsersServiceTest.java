@@ -1,5 +1,6 @@
 package be.decock.steven.leerplatform.user;
 
+import be.decock.steven.leerplatform.domain.User;
 import be.decock.steven.leerplatform.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
