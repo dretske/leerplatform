@@ -6,8 +6,10 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExercisesService {
     
-    private static final Map<String, List<Exercise>> exercises = newHashMap();
+    private static final Map<String, List<Exercise>> exercisesForCategories = newHashMap();
+    private static final Map<Long, Exercise> exercises = newHashMap();
     
     static {
         List<Exercise> rekenenOefeningen = newArrayList(
@@ -84,15 +87,28 @@ public class ExercisesService {
                         .withPathParam("aantalLettersGekend", false)
                         .build()
         );
-        exercises.put("rekenen", rekenenOefeningen);
-        exercises.put("lezen", lezenOefeningen);
-        exercises.put("schrijven", schrijvenOefeningen);
+        exercisesForCategories.put("rekenen", rekenenOefeningen);
+        exercisesForCategories.put("lezen", lezenOefeningen);
+        exercisesForCategories.put("schrijven", schrijvenOefeningen);
+        
+        Stream<Exercise> allExercises = 
+                exercisesForCategories.values().stream()
+                    .flatMap((exerciseList) -> exerciseList.stream());
+        
+        allExercises.forEach(exercise -> exercises.put(exercise.getId(), exercise));
     }
     
     @GET
     @Produces("application/json")
     public Exercise[] exercisesForCategory(@QueryParam("categoryId") String categoryId) {
-        return exercises.get(categoryId).toArray(new Exercise[exercises.size()]);
+        return exercisesForCategories.get(categoryId).toArray(new Exercise[exercisesForCategories.get(categoryId).size()]);
+    }
+    
+    @GET
+    @Path("/{exerciseId}")
+    @Produces("application/json")
+    public Exercise exercise(@PathParam("exerciseId") long exerciseId) {
+        return exercises.get(exerciseId);
     }
     
 }

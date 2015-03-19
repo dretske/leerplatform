@@ -61,11 +61,6 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
             var snapPercentage = 0.2;
             var selectedItemIndex = 0;
             
-            if (scope.selectedItemIndex) {
-                selectedItemIndex = scope.selectedItemIndex;
-                previousOffsetX = offsetX = -1 * selectedItemIndex * itemWithSpacingWidth;
-            }
-            
             function totalWidth() {
                 return element.find('.sliderSelectorWrapper').first().width();
             }
@@ -78,6 +73,21 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                 left: baseX + 'px',
                 transform: 'translateX(' + offsetX + 'px)'
             });
+            
+                        
+            scope.$watch('items', function(newItems) {
+                if(newItems) {
+                    maxX = (scope.items.length -1) * itemWithSpacingWidth;
+                    
+                    if (scope.selectedItemIndex) {
+                        selectedItemIndex = scope.selectedItemIndex;
+                        previousOffsetX = offsetX = -1 * selectedItemIndex * itemWithSpacingWidth;
+                        itemsDiv.css({
+                            transform: 'translateX(' + offsetX + 'px)'
+                        });
+                    }
+                }
+            }, true);
             
             function touchstart(event) {
                 if (event.originalEvent.targetTouches.length === 1) {

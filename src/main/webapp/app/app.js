@@ -18,7 +18,7 @@ var leerPlatformApp = angular.module('leerPlatformApp', [
   'schrijvenServices',
   'rekenenControllers',
   'rekenenServices',
-//  'ngDraggable',
+  'ngResource',
   'ngDragDrop',
   'ngRoute',
   'ui.bootstrap'
