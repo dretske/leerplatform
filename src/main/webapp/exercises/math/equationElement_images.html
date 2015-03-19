@@ -1,0 +1,12 @@
+<div ng-show="element === '?' && currentExercise.answer === null" class="unknown">
+    ?
+</div>
+<div ng-show="element === '?' && currentExercise.answer !== null"
+    class="graphical {{graphicStyle + (currentExercise.showSolution ? currentExercise.solution : currentExercise.answer)}}"
+    ng-class="{right : currentExercise.score > 0 || currentExercise.showSolution, wrong : currentExercise.score === 0 && !currentExercise.showSolution}">
+</div>
+<div ng-show="isNumeric(element)" class="graphical {{graphicStyle + element}}">
+</div>
+<div ng-show="element !== '?' && !isNumeric(element)">
+    {{element}}
+</div>

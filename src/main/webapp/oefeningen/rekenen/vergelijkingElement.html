@@ -1,7 +1,0 @@
-<div ng-show="element === '?'" class="unknown"
-    ng-class="{juist : currentExercise.score > 0 || currentExercise.showSolution, fout : currentExercise.score === 0 && !currentExercise.showSolution}">
-    {{currentExercise.answer === null ? '?' : (currentExercise.showSolution ? currentExercise.solution : currentExercise.answer)}}
-</div>
-<div ng-show="element !== '?'">
-    {{element}}
-</div>

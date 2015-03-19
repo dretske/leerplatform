@@ -3,14 +3,14 @@
     src: url("../fonts/appleberry_with_cyrillic.ttf");
 }
 
-.lezenContainer {
+.readingContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
     -webkit-flex: 1;
 }
 
-.schrijvenContainer {
+.writingContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
@@ -23,41 +23,21 @@
     -webkit-box-justify-content: space-around;
 }
 
-.rekenenContainer {
+.mathContainer {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
     flex: 1;
     -webkit-flex: 1;
 }
 
-.rekenenMenu {
+.mathMenu {
     background-image: url("../images/blackboardSmooth.jpg");
     background-repeat: repeat;
 }
 
-#vergelijking {
+#equation {
     margin: 0 auto;
     display: inline-block;
-}
-
-.oefeningInOverview {
-    border: 1px solid black;
-    background-color: #DDDDDD;
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-}
-
-.oefeningInOverview.actieveOefening {
-    background-color: white;
-}
-
-.oefeningInOverview.oefeningCorrect {
-    background-color: green;
-}
-
-.oefeningInOverview.oefeningFout {
-    background-color: red;
 }
 
 .slideInOut {
@@ -70,24 +50,7 @@
 .slideInOut.ng-show {
 }
 
-
-.keuzeDragBox {
-    padding: 10px 5px;
-    display: inline-block;
-}
-
-.keuze {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: x-large;
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 10px 14px;
-    margin: 5px 10px 20px 10px;
-    text-align: center;
-    background-color: #FFFFFF;
-}
-
-.vergelijkingElement {
+.equationElement {
     font-family: Chalk, Verdana, Geneva, sans-serif;
     font-size: 8em;
     padding: 15px;
@@ -99,7 +62,7 @@
     color: white;
 }
 
-.vergelijkingElement .grafisch {
+.equationElement .graphical {
     width: 160px;
     height: 160px;
 } 
@@ -134,39 +97,35 @@
 .ijsjes5 {
     background-image: url('../images/graphicnumbers/ijsjes-5.png');
 } 
-
-img.vergelijkingElementTeken {
-    width: 8em;
-}
     
-.vergelijkingElement div {
+.equationElement div {
     padding: 0px; 
 }
 
-.vergelijkingElement .juist {
+.equationElement .right {
     /*border: 3px solid yellowgreen;*/ 
     /*border-radius: 50%;*/
     color: yellowgreen;
 }
 
-.vergelijkingElement .fout {
+.equationElement .wrong {
     color: red;
 /*    background-image: url("../images/red-cross.png");
     background-size: contain;
     background-repeat: no-repeat;*/
 }
 
-.vergelijkingElement .grafisch.juist {
+.equationElement .graphical.right {
     position: relative;
 }
 
-.vergelijkingElement .grafisch.fout {
+.equationElement .graphical.wrong {
     position: relative;
     border: 3px solid red; 
     border-radius: 50%;
 }
 
-.grafisch.juist:before {
+.graphical.right:before {
     position: absolute;
     border: 3px solid yellowgreen; 
     border-radius: 50%;
@@ -181,7 +140,7 @@ img.vergelijkingElementTeken {
     margin: auto;
 }
 
-.grafisch.fout:before, .grafisch.fout:after {
+.graphical.wrong:before, .graphical.wrong:after {
     position: absolute;
     content: '';
     background: red;
@@ -197,7 +156,7 @@ img.vergelijkingElementTeken {
     margin: auto;
 }
 
-.grafisch.fout:after {
+.graphical.wrong:after {
     -webkit-transform: rotate(45deg);  
     transform: rotate(45deg);
 }
@@ -211,19 +170,12 @@ img.vergelijkingElementTeken {
     display: inline-block;
 }
 
-#nieuwButton {
-    border: 1px solid black;
-    padding: 10px;
-    background-color: #ffffc0;
-    cursor: pointer;
-}
-
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .header, .footer {
 }
 
-.antwoord {
+.answer {
     display: inline-block;
     border: none;
     text-align: center;
@@ -236,7 +188,7 @@ img.vergelijkingElementTeken {
     font-size: 8em;
 }   
 
-.antwoord.letter {
+.answer.letter {
     height: 120px;
     width: 100px;
     font-size: 5.5em;
@@ -244,34 +196,34 @@ img.vergelijkingElementTeken {
     margin: 0px;
 }   
 
-.antwoord.getal {
+.answer.number {
     width: 150px;
 }
 
-.antwoord.grafisch {
+.answer.graphical {
     width: auto;
     padding: 10px;
 }
 
-.antwoord .grafisch {
+.answer .graphical {
     width: 160px;
     height: 160px;
 } 
 
-.antwoord.juist {
+.answer.right {
     color: yellowgreen;
 }
 
-.antwoord.fout {
+.answer.wrong {
     color: red;
 }
 
-.rows-2 .antwoord {
+.rows-2 .answer {
     width: 160px;
     font-size: 5.5em;
  }
 
-.letterplaatsen {
+.letterplaces {
     display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
     display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
@@ -282,7 +234,7 @@ img.vergelijkingElementTeken {
     -webkit-justify-content: center;
 }
 
-.letterplaats {
+.letterplace {
     height: 130px;
     width: 110px;
     padding: 5px;
@@ -291,7 +243,7 @@ img.vergelijkingElementTeken {
     margin-right: 5px;
 }
 
-.schrijvenContainer .woord {
+.writingContainer .word {
     margin-bottom: 20px;
     display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
     display: -ms-flexbox;  /* TWEENER - IE 10 */
@@ -301,7 +253,7 @@ img.vergelijkingElementTeken {
     -webkit-justify-content: center;
 }
 
-.resultaatPopup {
+.resultPopup {
     background: repeating-linear-gradient(
       45deg,
       #606dbc,
@@ -311,17 +263,17 @@ img.vergelijkingElementTeken {
     );
 }
 
-.ster1, .ster2, .ster3 {
+.star1, .star2, .star3 {
     width: 10em;
 }
 
-.lezenContainer .opgave {
+.readingContainer .exercise {
     font-family: Chalk, Verdana, Geneva, sans-serif;
     font-size: 8em;
     color: white;
 }
 
-#opgave.tellen {
+#exercise.counting {
     width: 568px;
     height: 568px;
     display: block;
@@ -330,7 +282,7 @@ img.vergelijkingElementTeken {
     position: relative;
 }
 
-.schrijvenContainer .knoppen {
+.writingContainer .buttons {
     display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
     display: -ms-flexbox;  /* TWEENER - IE 10 */
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */

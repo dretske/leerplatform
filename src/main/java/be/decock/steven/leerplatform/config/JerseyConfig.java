@@ -6,7 +6,7 @@
 package be.decock.steven.leerplatform.config;
 
 import be.decock.steven.leerplatform.service.CategoriesService;
-import be.decock.steven.leerplatform.service.ExercisesService;
+import be.decock.steven.leerplatform.service.TestsService;
 import be.decock.steven.leerplatform.service.UsersService;
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -19,7 +19,7 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         register(UsersService.class);
         register(CategoriesService.class);
-        register(ExercisesService.class);
+        register(TestsService.class);
     }
     
 }

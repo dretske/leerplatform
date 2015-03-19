@@ -1,0 +1,7 @@
+<button class="answer number" 
+    ng-repeat="option in currentExercise.options"
+    ng-click="submitAnswer(option)"
+    ng-disabled="currentExercise.score >= 0"
+>
+    {{option}}
+</button>

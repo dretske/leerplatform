@@ -1,0 +1,26 @@
+<div class="menu categoryMenu">
+    <div class="titelPanel">
+        <div class="menuTitle">Kies een vak</div>
+    </div>
+    <div class="testsPanel">
+        <slider-selector items="items" 
+                        on-selected="itemSelected" 
+                        image-width="568"
+                        spacing="50"
+                        selected-item-index="selectedItemIndex">
+            <div class="categoryMenuItem" style="margin-right: {{spacing}}px">
+                <img src="{{item.imagePath}}" width="{{imageWidth}}"/>
+            </div>
+            <div class="menuItemTitle centeredInParent">{{item.title}}</div>
+        </slider-selector>
+    </div>
+    <div class="buttonsPanel">
+        <div class="left">
+        </div>
+        <div class="center">
+            <button type="button" class="centeredInParent button" ng-click="openTests()">Verder</button>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+</div>

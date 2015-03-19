@@ -18,9 +18,9 @@ public class CategoriesService {
     
     private static final Map<String, Category> categories = newHashMap();
     static {
-        categories.put("rekenen", new Category("rekenen", "Rekenen", "images/rekenenMenuItem.png"));
-        categories.put("lezen", new Category("lezen", "Lezen", "images/lezenMenuItem.png"));
-        categories.put("schrijven", new Category("schrijven", "Schrijven", "images/schrijvenMenuItem.png"));
+        categories.put("math", new Category("math", "Rekenen", "images/mathMenuItem.png"));
+        categories.put("reading", new Category("reading", "Lezen", "images/readingMenuItem.png"));
+        categories.put("writing", new Category("writing", "Schrijven", "images/writingMenuItem.png"));
     }
     
     @GET

@@ -1,0 +1,37 @@
+<div id="container" class="writingContainer" ng-init="generateExercises()">
+    <div class="word">
+        <img src="images/words/{{currentExercise.solution}}.png" height="250" />
+    </div>
+    <div class="letterplaces">
+        <div class="letterplace" 
+             ng-repeat="letter in lettersInAnswer track by $index"
+             data-drop="true" ng-model='lettersInAnswer' jqyoui-droppable="{index: {{$index}}, onDrop: 'onToAnswerDrop'}">
+            <div class="answer letter" 
+                 ng-show="lettersInAnswer[$index]" 
+                 data-drag="{{lettersInAnswer[$index].drag}}"
+                 ng-show="lettersInAnswer[$index].value"
+                 data-jqyoui-options="{revert: 'invalid'}"
+                 ng-model="lettersInAnswer" 
+                 jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}"
+                 ng-class="{
+                     right : lettersInAnswer[$index].correct || currentExercise.showSolution, 
+                     wrong : currentExercise.score === 0 && !lettersInAnswer[$index].correct
+                    }"
+                 >
+                {{lettersInAnswer[$index].value}}
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="button-ok" ng-click="buildAndSubmitAnswer()" ng-show="showOkButton()" ng-disabled="!enableOkButton">Ok</button>
+    </div>
+    <div class="letterplaces">
+        <div class="letterplace" ng-repeat="option in draggableOptions track by $index" data-drop="true" ng-model='draggableOptions' jqyoui-droppable="{index: {{$index}}, onDrop: 'onToAnswerDrop'}">
+            <div class="answer letter" data-drag="{{option.drag}}" 
+                 data-jqyoui-options="{revert: 'invalid'}" 
+                 ng-model="draggableOptions" 
+                 jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}"
+                  ng-hide="!option.value">{{option.value}}</div>
+        </div>
+    </div>
+</div>

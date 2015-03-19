@@ -1,0 +1,7 @@
+<div class="answer number graphical" 
+    ng-repeat="option in currentExercise.options"
+    ng-click="submitAnswer(option)"
+    ng-disabled="currentExercise.score >= 0"
+>
+    <div class="graphical {{graphicStyle + option}}"></div>
+</div>

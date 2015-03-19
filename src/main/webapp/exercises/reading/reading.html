@@ -1,0 +1,23 @@
+<div id="container" class="readingContainer" ng-init="generateExercises()">
+    <div id="contentWithFooter">
+        <div class="centeredInParentContainer">
+            <div class="centeredInParent">
+                <div class="exercise">
+                    {{currentExercise.question}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="answers" class="centeredInParent">
+            <button class="answer" ng-click="submitAnswer(true)"
+                    ng-class="{right : currentExercise.solution === true && (currentExercise.score > 0 || currentExercise.showSolution), wrong : currentExercise.solution === false && currentExercise.score === 0}">
+                Juist
+            </button>
+            <button class="answer" ng-click="submitAnswer(false)"
+                    ng-class="{right : currentExercise.solution === false && (currentExercise.score > 0 || currentExercise.showSolution), wrong : currentExercise.solution === true && currentExercise.score === 0}">
+                Fout
+            </button>
+        </div>
+    </div>
+</div>

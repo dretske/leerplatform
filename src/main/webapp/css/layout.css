@@ -83,11 +83,11 @@ html, body {
     -webkit-flex-direction: column;
 }
 
-.categorieMenu {
+.categoryMenu {
     background-image: url("../images/mainMenuBackground.png");
 }
 
-.categorieMenuItem {
+.categoryMenuItem {
     border-radius: 25px;
     
     box-shadow: 0px 0px 30px 11px rgba(0,0,0,0.4);
@@ -95,19 +95,19 @@ html, body {
     margin-top: 30px;
 }
 
-.oefeningenMenu.rekenen {
+.testsMenu.math {
     background-image: url("../images/rekenenBackground-blurred.png");
 }
 
-.oefeningenMenu.lezen {
+.testsMenu.reading {
     background-image: url("../images/lezenBackground-blurred.png");
 }
 
-.oefeningenMenu.schrijven {
+.testsMenu.writing {
     background-image: url("../images/schrijvenBackground-blurred.png");
 }
 
-.menu > .titelBalk {
+.menu > .titelPanel {
     -webkit-box-flex: 1 1 auto;
     flex: 1 1 auto;
     font-family: Chalk;
@@ -120,12 +120,12 @@ html, body {
     margin: 10px 10px 10px 10px;
 }
 
-.menu > .oefeningenBalk {
+.menu > .testsPanel {
     -webkit-box-flex: 1 1 auto;
     flex: 1 1 auto;
 }
 
-.menu > .knoppenBalk {
+.menu > .buttonsPanel {
     flex: 1 1 auto;
     -webkit-box-flex: 1 1 auto;
     display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
@@ -139,21 +139,21 @@ html, body {
     padding: 10px 20px 10px;
 }
 
-.menu > .knoppenBalk > .links {
+.menu > .buttonsPanel > .left {
     width: 200px;
 }
 
-.menu > .knoppenBalk > .centraal {
+.menu > .buttonsPanel > .center {
     flex: auto;
      -webkit-box-flex: auto;
     text-align: center;
 }
 
-.menu > .knoppenBalk > .rechts {
+.menu > .buttonsPanel > .right {
     width: 200px;
 }
 
-.menu > .knoppenBalk > button {
+.menu > .buttonsPanel > button {
 /*    -webkit-flex: 1 1 auto;
     flex: 1 1 auto;*/
 }
@@ -179,7 +179,7 @@ html, body {
     width: 300px;
 }
 
-.oefeningenMenuItem {
+.testsMenuItem {
     width: 500px;
     height: 400px;
     background-color: white;
@@ -192,19 +192,19 @@ html, body {
     -webkit-flex-direction: column;
 }
 
-.oefeningenMenuItem .titel {
+.testsMenuItem .title {
     background-color: lightblue;
     font-size: 5em;
     flex-grow: 1;
 }
 
-.oefeningenMenuItem .subtitel {
+.testsMenuItem .subtitle {
     font-size: 5.5em;
     flex-grow: 1;
     -webkit-box-flex: 1;
 }
 
-.oefeningenMenuItem .niveau {
+.testsMenuItem .level {
     background-color: lightgrey;
     font-size: 5.5em;
     flex-grow: 1;

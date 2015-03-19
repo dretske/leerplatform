@@ -1,0 +1,7 @@
+<div ng-show="element === '?'" class="unknown"
+    ng-class="{right : currentExercise.score > 0 || currentExercise.showSolution, wrong : currentExercise.score === 0 && !currentExercise.showSolution}">
+    {{currentExercise.answer === null ? '?' : (currentExercise.showSolution ? currentExercise.solution : currentExercise.answer)}}
+</div>
+<div ng-show="element !== '?'">
+    {{element}}
+</div>

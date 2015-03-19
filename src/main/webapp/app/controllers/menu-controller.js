@@ -2,16 +2,16 @@
 
 var mainControllers = angular.module('mainControllers');
 
-mainControllers.controller('OefeningenMenuCtrl',
-        ['$scope', '$location', '$routeParams', 'Categories', 'Exercises', function ($scope, $location, $routeParams, Categories, Exercises) {
+mainControllers.controller('TestsMenuCtrl',
+        ['$scope', '$location', '$routeParams', 'Categories', 'Tests', function ($scope, $location, $routeParams, Categories, Tests) {
 
-                $scope.categorie = Categories.get({categorieId: $routeParams.categorie});
-                $scope.items = Exercises.query({categoryId: $routeParams.categorie}, onExercisesLoaded);
-                $scope.selectedItemIndex = $routeParams.oefeningId ? getIndexForOefening(parseInt($routeParams.oefeningId)) : 0;
+                $scope.category = Categories.get({categoryId: $routeParams.category});
+                $scope.items = Tests.query({categoryId: $routeParams.category}, onTestsLoaded);
+                $scope.selectedItemIndex = $routeParams.testId ? getIndexForTest(parseInt($routeParams.testId)) : 0;
                 var selectedItem = null;
 
-                function onExercisesLoaded() {
-                    $scope.selectedItemIndex = $routeParams.oefeningId ? getIndexForOefening(parseInt($routeParams.oefeningId)) : 0;
+                function onTestsLoaded() {
+                    $scope.selectedItemIndex = $routeParams.testId ? getIndexForTest(parseInt($routeParams.testId)) : 0;
                     selectedItem = $scope.items[$scope.selectedItemIndex];
                 }
                 
@@ -21,18 +21,18 @@ mainControllers.controller('OefeningenMenuCtrl',
 
                 $scope.select = function () {
                     $location.path('/' + selectedItem.path).search(selectedItem.pathParams);
-                    $location.search('oefeningId', selectedItem.id);
-                    $location.search('categorie', $scope.categorie.id);
+                    $location.search('testId', selectedItem.id);
+                    $location.search('category', $scope.category.id);
                 };
 
-                $scope.terugNaarCategorieMenu = function () {
+                $scope.backToCategoryMenu = function () {
                     $location.search({});
-                    $location.path('/categorie').search('selected', $routeParams.categorie);
+                    $location.path('/category').search('selected', $routeParams.category);
                 };
 
-                function getIndexForOefening(oefeningId) {
+                function getIndexForTest(testId) {
                     for (var i = 0; i < $scope.items.length; i++) {
-                        if ($scope.items[i].id === oefeningId) {
+                        if ($scope.items[i].id === testId) {
                             return i;
                         }
                     }
@@ -41,15 +41,15 @@ mainControllers.controller('OefeningenMenuCtrl',
 
             }]);
 
-mainControllers.controller('CategorieMenuCtrl',
+mainControllers.controller('CategoryMenuCtrl',
         ['$scope', '$location', '$routeParams', 'Categories', function ($scope, $location, $routeParams, Categories) {
 
                 $scope.items = Categories.query(onCategoriesLoaded);
-                var selectedCategorie = null;
+                var selectedCategory = null;
 
                 function onCategoriesLoaded() {
                     $scope.selectedItemIndex = $routeParams.selected ? getIndexForCategory($routeParams.selected) : 0;
-                    selectedCategorie = $scope.items[$scope.selectedItemIndex];
+                    selectedCategory = $scope.items[$scope.selectedItemIndex];
                 }
 
                 function getIndexForCategory(category) {
@@ -62,12 +62,12 @@ mainControllers.controller('CategorieMenuCtrl',
                 }
 
                 $scope.itemSelected = function (item) {
-                    selectedCategorie = item;
+                    selectedCategory = item;
                 };
 
-                $scope.openOefeningen = function () {
+                $scope.openTests = function () {
                     $location.search({});
-                    $location.path('/oefeningen').search('categorie', selectedCategorie.id);
+                    $location.path('/tests').search('category', selectedCategory.id);
                 };
 
             }]);
