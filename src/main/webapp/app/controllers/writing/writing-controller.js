@@ -16,9 +16,9 @@ writingControllers.controller('WritingCtrl',
         var nextExerciseCallback = function(exercise) {
             $scope.draggableOptions = [];
             if ($scope.numberOfLettersKnown) {
-                $scope.lettersInAnswer = CommonServices.createAndFillArray(exercise.solution.length, '');
+                $scope.lettersInAnswer = CommonServices.createAndFillArray(exercise.solution.length, {});
             } else {
-                $scope.lettersInAnswer = [''];
+                $scope.lettersInAnswer = [{}];
             }
             for (var i=0; i < exercise.options.length; i++) {
                 var option = exercise.options[i];
@@ -85,10 +85,8 @@ writingControllers.controller('WritingCtrl',
         function markCorrectLetters() {
             for (var i=0; i < $scope.lettersInAnswer.length; i++) {
                 var letterInAnswer = $scope.lettersInAnswer[i];
-                if (letterInAnswer !== '') {
-                    var letterInSolution = $scope.currentExercise.solution.split('')[i];
-                    letterInAnswer.correct = letterInAnswer.value === letterInSolution;
-                }
+                var letterInSolution = $scope.currentExercise.solution.split('')[i];
+                letterInAnswer.correct = letterInAnswer.value === letterInSolution;
             }
         }
         

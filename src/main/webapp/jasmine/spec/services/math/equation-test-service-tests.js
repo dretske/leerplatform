@@ -1,19 +1,20 @@
-describe("rekenenServices tests", function () {
+describe("equation-test-service tests", function () {
 
-    var ExerciseGenerator;
+    var EquationTestService;
 
     beforeEach(function () {
         jasmine.addMatchers(customMatchers);
-        module('rekenenServices');
+        module('mainServices');
+        module('mathServices');
 
-        inject(function (_ExerciseGenerator_) {
+        inject(function (_EquationTestService_) {
             // The injector unwraps the underscores (_) from around the parameter names when matching
-            ExerciseGenerator = _ExerciseGenerator_;
+            EquationTestService = _EquationTestService_;
         });
     });
 
     it("generateExercise - score starts at -1", function () {
-        var exercise = ExerciseGenerator.generateExercise(true, 3);
+        var exercise = EquationTestService.generateExercise(true, 3);
         expect(exercise.score).toEqual(-1);
     });
 
@@ -24,7 +25,11 @@ describe("rekenenServices tests", function () {
     });
 
     it("generateExercise - equation : solution in options", function () {
-        var exercises = ExerciseGenerator.generateExercises(100, true, 3);
+        var exercises = EquationTestService.generateExercises(100, {
+            withoutZero: false,
+            maxConstantsSize: 5,
+            subtraction: true
+        });
         var solutionInOptions = function(exercise, result) {
             result.pass = exercise.options.indexOf(exercise.solution) !== -1;
             if (!result.pass) {
@@ -37,27 +42,49 @@ describe("rekenenServices tests", function () {
     });
 
     it("generateExercise - equation : options contain all elements from minConstantSize to maxConstantSize", function () {
-        expect(ExerciseGenerator.generateExercise(true, 3).options).toContain(1,2,3);
+        expect(EquationTestService.generateExercise(true, 3, true).options).toContain(1,2,3);
     });
 
     it("generateExercise - equation : correct answer sets score to 1", function () {
-        var exercise = ExerciseGenerator.generateExercise(false, 4);
+        var exercise = EquationTestService.generateExercise(false, 4, true);
         exercise.enterAnswer(exercise.solution);
         expect(exercise.score).toEqual(1);
     });
 
     it("generateExercise - subtraction : correct answer sets score to 1", function () {
         for (i=0; i<100; i++) {
-            var exercise = ExerciseGenerator.generateExercise(false, 9, true);
+            var exercise = EquationTestService.generateExercise(false, 9, true);
             exercise.enterAnswer(exercise.solution);
             expect(exercise.score).toEqual(1);
         }
     });
 
+    it("generateExercise - subtraction : generated operators are + and -", function () {
+        var numberOfSubtractions = 0;
+        var numberOfAdditions = 0;
+
+        var exercises = EquationTestService.generateExercises(100, {
+            withoutZero: false,
+            maxConstantsSize: 5,
+            subtraction: true
+        });
+
+        for (i=0; i<exercises.length; i++) {
+            var exercise = exercises[i];
+            if (exercise.equation.lhsOperators.indexOf('-') >= 0 || exercise.equation.rhsOperators.indexOf('-') >= 0) {
+                numberOfSubtractions++;
+            } else {
+                numberOfAdditions++;
+            }
+        }
+        
+        expect(numberOfSubtractions).toBeGreaterThan(0);
+    });
+
     it("generateExercise - subtraction : exercises with large enough substractions are generated", function () {
         var maxSubtraction = 100;
         for (var i=0; i<100; i++) {
-            var exercise = ExerciseGenerator.generateExercise(false, 9, true);
+            var exercise = EquationTestService.generateExercise(false, 9, true);
             exercise.enterAnswer(exercise.solution);
             
             var maxSubtractionFromEquation = getLargestNegativeConstantFrom(exercise);
@@ -68,13 +95,17 @@ describe("rekenenServices tests", function () {
     });
 
     it("generateExercise - equation : incorrect answer sets score to 0", function () {
-        var exercise = ExerciseGenerator.generateExercise(false, 4);
+        var exercise = EquationTestService.generateExercise(false, 4, true);
         exercise.enterAnswer(arrayValueDifferentFrom(exercise.options, exercise.solution));
         expect(exercise.score).toEqual(0);
     });
     
     it("generateExercise - equation : every generated exercise equation differs from the previous one", function () {
-        var exercises = ExerciseGenerator.generateExercises(100, 1, 3);
+        var exercises = EquationTestService.generateExercises(100, {
+            withoutZero: false,
+            maxConstantsSize: 5,
+            subtraction: true
+        });
         var consecutiveExerciseEquationsNotEqual = function(exercises, result) {
             var previousExercise = exercises[0];
             for(var i=1; i < exercises.length; i++) {
@@ -95,7 +126,7 @@ describe("rekenenServices tests", function () {
     it("generateIntegerNumbersTotallingBetween: with zero, no subtraction", function () {
         for (var i=0; i<100; i++) {
             // minResult, maxResult, size, maxValue, withoutZero, subtraction
-            var integers = ExerciseGenerator.generateIntegerNumbersTotallingBetween(1, 5, 2, 3, false, false);
+            var integers = EquationTestService.generateIntegerNumbersTotallingBetween(1, 5, 2, 3, false, false);
             
             expect(sum(integers)).toBeGreaterThan(0);
             expect(sum(integers)).toBeLessThan(6);
@@ -106,7 +137,7 @@ describe("rekenenServices tests", function () {
     it("generateIntegerNumbersTotallingBetween: without zero, no subtraction", function () {
         for (var i=0; i<100; i++) {
             // minResult, maxResult, size, maxValue, withoutZero, subtraction
-            var integers = ExerciseGenerator.generateIntegerNumbersTotallingBetween(1, 5, 2, 3, true, false);
+            var integers = EquationTestService.generateIntegerNumbersTotallingBetween(1, 5, 2, 3, true, false);
             
             expect(sum(integers)).toBeGreaterThan(0);
             expect(sum(integers)).toBeLessThan(6);
@@ -118,7 +149,7 @@ describe("rekenenServices tests", function () {
     it("generateIntegerNumbersTotallingBetween: with zero, subtraction", function () {
         for (var i=0; i<100; i++) {
             // minResult, maxResult, size, maxValue, withoutZero, subtraction
-            var integers = ExerciseGenerator.generateIntegerNumbersTotallingBetween(-2, 5, 2, 3, false, true);
+            var integers = EquationTestService.generateIntegerNumbersTotallingBetween(-2, 5, 2, 3, false, true);
             
             expect(sum(integers)).toBeGreaterThan(-3);
             expect(sum(integers)).toBeLessThan(6);
@@ -131,7 +162,7 @@ describe("rekenenServices tests", function () {
         var maxSum = -100;
         for (var i=0; i<100; i++) {
             // minResult, maxResult, size, maxValue, withoutZero, subtraction
-            var integers = ExerciseGenerator.generateIntegerNumbersTotallingBetween(-4, 5, 3, 3, true, true);
+            var integers = EquationTestService.generateIntegerNumbersTotallingBetween(-4, 5, 3, 3, true, true);
             
             var integersSum = sum(integers);
             if (integersSum < minSum) minSum = integersSum;
@@ -175,7 +206,7 @@ describe("rekenenServices tests", function () {
         var array = [];
 
         for(i=0; i<numberOfExercises; i++) {
-            array = array.concat(constantsFromExercise(ExerciseGenerator.generateExercise(true, maxConstantsSize)));
+            array = array.concat(constantsFromExercise(EquationTestService.generateExercise(true, maxConstantsSize)));
         }
 
         return array;   
@@ -183,23 +214,6 @@ describe("rekenenServices tests", function () {
 
     function constantsFromExercise(exercise) {
         return exercise.equation.lhsConstants.concat(exercise.equation.rhsConstants);
-    }
-    
-    function getLargestNegativeConstantFrom(exercise) {
-        return getConstantsWithOperatorFromExercise(exercise).reduce(function(a, b) {return a < b ? a : b;}, 100);
-    }
-    
-    function getConstantsWithOperatorFromExercise(exercise) {
-        return getConstantsFromEquationSide(
-                    exercise.equation.lhsConstants,
-                    exercise.equation.lhsOperators,
-                    exercise.solution)
-            .concat(
-                getConstantsFromEquationSide(
-                    exercise.equation.rhsConstants,
-                    exercise.equation.rhsOperators,
-                    exercise.solution));
-
     }
     
     function getConstantsFromEquationSide(constants, operators, solution) {
@@ -217,6 +231,23 @@ describe("rekenenServices tests", function () {
             }
         }
         return result;
+    }
+
+    function getConstantsWithOperatorFromExercise(exercise) {
+        return getConstantsFromEquationSide(
+                    exercise.equation.lhsConstants,
+                    exercise.equation.lhsOperators,
+                    exercise.solution)
+            .concat(
+                getConstantsFromEquationSide(
+                    exercise.equation.rhsConstants,
+                    exercise.equation.rhsOperators,
+                    exercise.solution));
+
+    }
+        
+    function getLargestNegativeConstantFrom(exercise) {
+        return getConstantsWithOperatorFromExercise(exercise).reduce(function(a, b) {return a < b ? a : b;}, 100);
     }
     
 });

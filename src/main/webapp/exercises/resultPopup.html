@@ -1,9 +1,9 @@
 <div class="resultPopup lined-paper" style="text-align: center;" ng-cloak>
     Jouw score is: {{score}} op {{total}}.
     <div class="sterren">
-        <img class="star1" src="images/star-cropped-{{ showStar1() ? 'active-border' : 'inactive'}}.png" alt="1e ster" />
-        <img class="star2" src="images/star-cropped-{{ showStar2() ? 'active-border' : 'inactive'}}.png" alt="2e ster" />
-        <img class="star3" src="images/star-cropped-{{ showStar3() ? 'active-border' : 'inactive'}}.png" alt="3e ster" />
+        <img class="star1" ng-src="images/star-cropped-{{ showStar1() ? 'active-border' : 'inactive'}}.png" alt="1e ster" />
+        <img class="star2" ng-src="images/star-cropped-{{ showStar2() ? 'active-border' : 'inactive'}}.png" alt="2e ster" />
+        <img class="star3" ng-src="images/star-cropped-{{ showStar3() ? 'active-border' : 'inactive'}}.png" alt="3e ster" />
     </div>
     <div class="popupButtons">
         <i class="fa fa-arrow-left fa-3x" ng-click="back()"></i>

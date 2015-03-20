@@ -276,7 +276,7 @@ mathServices.factory('EquationTestService', ['$log', 'CommonServices',
                 // We add a constant 
                 var firstNumber;
                 do {
-                    firstNumber = randomNumberBetween(minValueOfFirstNumber, maxValueOfFirstNumber);
+                    firstNumber = CommonServices.randomNumberBetween(minValueOfFirstNumber, maxValueOfFirstNumber);
                 } while (withoutZero && firstNumber === 0)
                 numbers.push(firstNumber);
 
