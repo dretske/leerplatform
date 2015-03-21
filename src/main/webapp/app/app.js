@@ -52,6 +52,14 @@ leerPlatformApp.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'app/controllers/categories-menu.html',
                 controller: 'CategoriesMenuCtrl'
             })
+            .when('/users', {
+                templateUrl: 'app/controllers/users/users.html',
+                controller: 'UsersCtrl'
+            })
+            .when('/users/new', {
+                templateUrl: 'app/controllers/users/add-user.html',
+                controller: 'AddUserCtrl'
+            })
             .otherwise({
                 redirectTo: '/categories'
             });

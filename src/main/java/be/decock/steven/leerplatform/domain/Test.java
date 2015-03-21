@@ -2,9 +2,11 @@ package be.decock.steven.leerplatform.domain;
 
 import java.util.Map;
 import static org.assertj.core.util.Maps.newHashMap;
+import org.springframework.data.annotation.Id;
 
 public class Test {
     
+    @Id
     private long id;
     private String title;
     private String subTitle;

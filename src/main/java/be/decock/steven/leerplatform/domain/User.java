@@ -1,12 +1,11 @@
 package be.decock.steven.leerplatform.domain;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class User {
  
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
     
     public User() {
@@ -16,11 +15,11 @@ public class User {
         this.name = name;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

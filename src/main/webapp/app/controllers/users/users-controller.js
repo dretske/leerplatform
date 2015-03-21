@@ -26,7 +26,7 @@ mainControllers.controller('UsersCtrl',
                     selectedUser = item;
                 };
 
-                $scope.openCategories = function () {
+                $scope.select = function () {
                     $location.search({});
                     $location.path('/categories').search('user', selectedUser.id);
                 };
