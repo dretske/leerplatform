@@ -74,7 +74,7 @@ var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $moda
 
             function openResultPopup() {
                 var modalInstance = $modal.open({
-                    templateUrl: 'exercises/resultPopup.html',
+                    templateUrl: 'app/controllers/resultPopup.html',
                     controller: 'ResultCtrl',
                     size: 'lg',
                     resolve: {

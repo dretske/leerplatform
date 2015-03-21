@@ -29,31 +29,31 @@ var leerPlatformApp = angular.module('leerPlatformApp', [
 leerPlatformApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
             .when('/math', {
-                templateUrl: 'exercises/math/math.html',
+                templateUrl: 'app/controllers/math/math.html',
                 controller: 'MathCtrl'
             })
             .when('/reading', {
-                templateUrl: 'exercises/reading/reading.html',
+                templateUrl: 'app/controllers/reading/reading.html',
                 controller: 'ReadingCtrl'
             })
             .when('/writing', {
-                templateUrl: 'exercises/writing/writing.html',
+                templateUrl: 'app/controllers/writing/writing.html',
                 controller: 'WritingCtrl'
             })
             .when('/counting', {
-                templateUrl: 'exercises/math/counting.html',
+                templateUrl: 'app/controllers/math/counting.html',
                 controller: 'CountingCtrl'
             })
             .when('/tests', {
-                templateUrl: 'testsMenu.html',
+                templateUrl: 'app/controllers/tests-menu.html',
                 controller: 'TestsMenuCtrl'
             })
-            .when('/category', {
-                templateUrl: 'categoryMenu.html',
-                controller: 'CategoryMenuCtrl'
+            .when('/categories', {
+                templateUrl: 'app/controllers/categories-menu.html',
+                controller: 'CategoriesMenuCtrl'
             })
             .otherwise({
-                redirectTo: '/category'
+                redirectTo: '/categories'
             });
 
     // configure html5 to get links working on jsfiddle

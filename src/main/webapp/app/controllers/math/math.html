@@ -6,7 +6,7 @@
                     <div id="equation">
                        <div class="equationElement centeredInParent" 
                              ng-repeat="element in currentExercise.equation.allElements() track by $index" 
-                             ng-include="'exercises/math/' + equationElementTemplate()">
+                             ng-include="'app/controllers/math/' + equationElementTemplate()">
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
     </div>
     <div id="footer" ng-class="footerClass()">
         <div id="answers" class="centeredInParent" 
-             ng-include="'exercises/math/' + answersTemplate()">
+             ng-include="'app/controllers/math/' + answersTemplate()">
         </div>
     </div>
 </div>

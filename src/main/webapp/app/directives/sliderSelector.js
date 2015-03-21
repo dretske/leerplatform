@@ -128,11 +128,16 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
             function dragend() {
                 setOffsetToImageStart();
                 previousOffsetX = offsetX;
-                scope.onSelected()(getSelectedImage());
+                scope.onSelected()(getSelectedItem());
                 itemsDiv.css({
                     transition: '1s',
                     transform: 'translateX(' + offsetX + 'px)'
                 });
+                if (scope.onClick() && Math.abs(currentDragDistanceX) < 5) {
+                    scope.onClick()();
+                    scope.$apply();
+                }
+                currentDragDistanceX = 0;
             }
             
             function touchmove(event) {
@@ -210,7 +215,7 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                         );
             }
 
-            function getSelectedImage() {
+            function getSelectedItem() {
                 var selectedIndex = Math.abs(offsetX / itemWithSpacingWidth);
                 return scope.items[selectedIndex];
             }
@@ -226,6 +231,7 @@ mainDirectives.directive("sliderSelector", ['$window', '$document', function ($w
                 spacing: '=',
                 selectedItemIndex: '=',
                 onDragStart: '&',
+                onClick: '&',
                 onSelected: '&'
             },
             link: linkFunction,

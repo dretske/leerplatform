@@ -86,7 +86,9 @@ writingControllers.controller('WritingCtrl',
             for (var i=0; i < $scope.lettersInAnswer.length; i++) {
                 var letterInAnswer = $scope.lettersInAnswer[i];
                 var letterInSolution = $scope.currentExercise.solution.split('')[i];
-                letterInAnswer.correct = letterInAnswer.value === letterInSolution;
+                if (letterInAnswer !== '') {
+                    letterInAnswer.correct = letterInAnswer.value === letterInSolution;
+                }
             }
         }
         

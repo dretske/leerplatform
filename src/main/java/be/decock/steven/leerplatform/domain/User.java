@@ -1,23 +1,26 @@
 package be.decock.steven.leerplatform.domain;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 public class User {
  
-    private long id;
+    @Id
+    private ObjectId id;
     private String name;
     
     public User() {
     }
     
-    public User(long id, String name) {
-        this.id = id;
+    public User(String name) {
         this.name = name;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
