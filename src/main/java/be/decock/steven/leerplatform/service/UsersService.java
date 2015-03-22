@@ -1,6 +1,7 @@
 package be.decock.steven.leerplatform.service;
 
 import be.decock.steven.leerplatform.domain.User;
+import be.decock.steven.leerplatform.repository.CategoryRepository;
 import be.decock.steven.leerplatform.repository.UserRepository;
 import java.net.URI;
 import java.util.List;

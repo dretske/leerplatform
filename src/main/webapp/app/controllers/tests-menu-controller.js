@@ -20,10 +20,15 @@ mainControllers.controller('TestsMenuCtrl',
                 };
 
                 $scope.select = function () {
-                    $location.path('/' + selectedItem.path).search(selectedItem.pathParams);
+                    $location.path('/' + selectedItem.path);
+                    selectedItem.pathParams.forEach(addPathParamToLocation);
                     $location.search('testId', selectedItem.id);
                     $location.search('category', $scope.category.id);
                 };
+                
+                function addPathParamToLocation(pathParam) {
+                    $location.search(pathParam.name, pathParam.value);
+                }
 
                 $scope.backToCategoriesMenu = function () {
                     $location.search({});

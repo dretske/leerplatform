@@ -2,7 +2,7 @@ package be.decock.steven.leerplatform.user;
 
 import be.decock.steven.leerplatform.domain.User;
 import be.decock.steven.leerplatform.Application;
-import be.decock.steven.leerplatform.repository.UserRepository;
+import be.decock.steven.leerplatform.repository.CategoryRepository;
 import java.net.URI;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class UsersServiceTest {
     private final RestTemplate restTemplate = new TestRestTemplate();
     
     @Autowired
-    UserRepository userRepository;
+    CategoryRepository userRepository;
 
     @Test
     public void health() {

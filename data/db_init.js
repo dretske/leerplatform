@@ -16,6 +16,29 @@ db.user.insert({name: 'wies'}, function(err,docsInserted){
 
 db.user.insert({name: 'aster'});
 
+var mathCategory = {
+    _id : ObjectId(), 
+    name: "math",
+    title: "Rekenen",
+    imagePath: "images/mathMenuItem.png"
+};
+var readingCategory = {
+    _id : ObjectId(), 
+    name: "reading",
+    title: "Lezen",
+    imagePath: "images/readingMenuItem.png"
+};
+var writingCategory = {
+    _id : ObjectId(), 
+    name: "writing",
+    title: "Schrijven",
+    imagePath: "images/writingMenuItem.png"
+};
+
+db.category.insert(mathCategory);
+db.category.insert(readingCategory);
+db.category.insert(writingCategory);
+
 var mathTests = [
     {
         _id: ObjectId(),
@@ -27,7 +50,8 @@ var mathTests = [
             {name: 'graphical', value: 'true'},
             {name: 'style', value: 'apple'},
             {name: 'subtraction', value: 'false'}
-        ]
+        ],
+        categoryId: mathCategory._id.valueOf()
     },
     {
         _id: ObjectId(),
@@ -39,7 +63,8 @@ var mathTests = [
             {name: 'graphical', value: 'true'},
             {name: 'style', value: 'ijsjes'},
             {name: 'subtraction', value: 'true'}
-        ]
+        ],
+        categoryId: mathCategory._id.valueOf()
     },
     {
         _id: ObjectId(),
@@ -50,7 +75,8 @@ var mathTests = [
             {name: 'max', value: '3'},
             {name: 'withoutZero', value: 'true'},
             {name: 'subtraction', value: 'true'}
-        ]
+        ],
+        categoryId: mathCategory._id.valueOf()
     }, {
         _id: ObjectId(),
         title: 'Optellen en aftrekken',
@@ -60,7 +86,8 @@ var mathTests = [
             {name: 'max', value: '5'},
             {name: 'withoutZero', value: 'false'},
             {name: 'subtraction', value: 'true'}
-        ]
+        ],
+        categoryId: mathCategory._id.valueOf()
     }, {
         _id: ObjectId(),
         title: 'Optellen en aftrekken',
@@ -70,10 +97,9 @@ var mathTests = [
             {name: 'max', value: '8'},
             {name: 'withoutZero', value: 'false'},
             {name: 'subtraction', value: 'true'}
-        ]
+        ],
+        categoryId: mathCategory._id.valueOf()
     }];
-
-db.test.insert(mathTests);
 
 var readingTests = [
     {
@@ -81,10 +107,9 @@ var readingTests = [
         title: 'Juist of Fout',
         subTitle: 'Makkelijk',
         path: 'reading',
-        pathParams: []
+        pathParams: [],
+        categoryId: readingCategory._id.valueOf()
     }];
-
-db.test.insert(readingTests);
 
 var writingTests = [
     {
@@ -92,30 +117,17 @@ var writingTests = [
         title: 'Schrijven',
         subTitle: 'Woordjes 1',
         path: 'writing',
-        pathParams: [{name: 'numberOfLettersKnown', value: 'true'}]
+        pathParams: [{name: 'numberOfLettersKnown', value: 'true'}],
+        categoryId: writingCategory._id.valueOf()
     }, {
         _id: ObjectId(),
         title: 'Schrijven',
         subTitle: 'Woordjes 2',
         path: 'writing',
-        pathParams: [{name: 'numberOfLettersKnown', value: 'false'}]
+        pathParams: [{name: 'numberOfLettersKnown', value: 'false'}],
+        categoryId: writingCategory._id.valueOf()
     }];
 
+db.test.insert(mathTests);
+db.test.insert(readingTests);
 db.test.insert(writingTests);
-
-
-db.category.insert({
-    title: "Rekenen",
-    imagePath: "images/mathMenuItem.png",
-    testIds: mathTests.map(toIds)
-});
-db.category.insert({
-    title: "Lezen",
-    imagePath: "images/readingMenuItem.png",
-    testIds: readingTests.map(toIds)
-});
-db.category.insert({
-    title: "Schrijven",
-    imagePath: "images/writingMenuItem.png",
-    testIds: writingTests.map(toIds)
-});

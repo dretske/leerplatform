@@ -1,8 +1,12 @@
 package be.decock.steven.leerplatform.domain;
 
+import org.springframework.data.annotation.Id;
+
 public class Category {
     
+    @Id
     private String id;
+    private String name;
     private String title;
     private String imagePath;
     
@@ -28,6 +32,14 @@ public class Category {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImagePath() {

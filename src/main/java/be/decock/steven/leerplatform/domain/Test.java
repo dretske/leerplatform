@@ -1,26 +1,26 @@
 package be.decock.steven.leerplatform.domain;
 
-import java.util.Map;
-import static org.assertj.core.util.Maps.newHashMap;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 
 public class Test {
     
     @Id
-    private long id;
+    private String id;
     private String title;
     private String subTitle;
     private String path;
-    private Map<String, Object> pathParams;
+    private List<PathParam> pathParams;
+    private String categoryId;
 
     public Test() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -39,6 +39,14 @@ public class Test {
     public void setSubTitle(String subTitle) {
         this.subTitle = subTitle;
     }
+    
+    public String getCategoryId() {
+        return categoryId;
+    }
+    
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getPath() {
         return path;
@@ -48,59 +56,12 @@ public class Test {
         this.path = path;
     }
 
-    public Map<String, Object> getPathParams() {
+    public List<PathParam> getPathParams() {
         return pathParams;
     }
 
-    public void setPathParams(Map<String, Object> pathParams) {
+    public void setPathParams(List<PathParam> pathParams) {
         this.pathParams = pathParams;
     }
-    
-    public static class TestBuilder {
         
-        private static long idCounter = 1;
-        
-        public static TestBuilder aTest() {
-            return new TestBuilder();
-        }
-        
-        private String title;
-        private String subTitle;
-        private String path;
-        private Map<String, Object> pathParams = newHashMap();
-        
-        public Test build() {
-            final Test test = new Test();
-            
-            test.id = idCounter++;
-            test.title = this.title;
-            test.subTitle = this.subTitle;
-            test.path = this.path;
-            test.pathParams = this.pathParams;
-            
-            return test;
-        }
-        
-        public TestBuilder withTitle(String title) {
-            this.title = title;
-            return this;
-        }
-        
-        public TestBuilder withSubTitle(String subTitle) {
-            this.subTitle = subTitle;
-            return this;
-        }
-        
-        public TestBuilder withPath(String path) {
-            this.path = path;
-            return this;
-        }
-        
-        public TestBuilder withPathParam(String name, Object value) {
-            this.pathParams.put(name, value);
-            return this;
-        }
-        
-    }
-    
 }
