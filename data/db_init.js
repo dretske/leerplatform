@@ -10,11 +10,11 @@ db.getCollectionNames()
             if (c.indexOf("system.") === -1) db[c].drop(); 
         });
 
-db.user.insert({name: 'wies'}, function(err,docsInserted){
+db.user.insert({name: 'Wies'}, function(err,docsInserted){
     printjson(docsInserted);
 });
 
-db.user.insert({name: 'aster'});
+db.user.insert({name: 'Aster'});
 
 var mathCategory = {
     _id : ObjectId(), 
