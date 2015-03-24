@@ -3,8 +3,8 @@
 var writingControllers = angular.module('writingControllers');
 
 writingControllers.controller('WritingCtrl', 
-    ['$scope', '$routeParams', 'WritingTestService', 'CommonServices', '$timeout', '$modal', '$location',
-    function ($scope, $routeParams, WritingTestService, CommonServices, $timeout, $modal, $location) {
+    ['$scope', '$routeParams', 'WritingTestService', 'CommonServices', '$timeout', '$modal', '$location', 'AuthService',
+    function ($scope, $routeParams, WritingTestService, CommonServices, $timeout, $modal, $location, AuthService) {
         
         $scope.exerciseOptions = {
         };
@@ -65,7 +65,7 @@ writingControllers.controller('WritingCtrl',
         };
         
         var testCtrl = new TestCtrl($scope, $routeParams, 
-            WritingTestService, $timeout, $modal, $location,
+            WritingTestService, $timeout, $modal, $location, AuthService,
             {
                 nextExercise: nextExerciseCallback,
                 showSolution: showSolutionCallback

@@ -3,7 +3,7 @@
 var mainControllers = angular.module('mainControllers');
 
 mainControllers.controller('UsersCtrl',
-        ['$scope', '$location', '$routeParams', 'Users', function ($scope, $location, $routeParams, Users) {
+        ['$scope', '$location', '$routeParams', 'Users', 'AuthService', function ($scope, $location, $routeParams, Users, AuthService) {
 
                 $scope.items = Users.query(onUsersLoaded);
                 var selectedUser = null;
@@ -28,7 +28,8 @@ mainControllers.controller('UsersCtrl',
 
                 $scope.select = function () {
                     $location.search({});
-                    $location.path('/categories').search('user', selectedUser.id);
+                    AuthService.login(selectedUser);
+                    $location.path('/categories');
                 };
 
             }]);

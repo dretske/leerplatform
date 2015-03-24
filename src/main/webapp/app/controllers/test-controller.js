@@ -1,6 +1,7 @@
 'use strict';
 
-var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $modal, $location, callbacks) {
+var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, 
+        $modal, $location, AuthService, callbacks) {
 
         var testId = $routeParams.testId;
         var categoryId = $routeParams.category;
@@ -24,7 +25,9 @@ var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $moda
 
             $scope.toggleShowSolution = function () {
                 $scope.currentExercise.showSolution = true;
-                callbacks.showSolution();
+                if (callbacks && callbacks.showSolution) {
+                    callbacks.showSolution();
+                }
             };
 
             $scope.nextExercise = function () {
@@ -36,6 +39,7 @@ var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, $moda
                         callbacks.nextExercise($scope.currentExercise);
                     }
                 } else {
+                    AuthService.currentUser().$addTestScore({testId: testId, score: $scope.score});
                     openResultPopup();
                 }
             };

@@ -19,6 +19,11 @@
                     {{item.subTitle}}
                 </div>
                 <div class="level">
+                    <div class="sterren">
+                        <img class="star1" ng-src="images/star-cropped-{{ item.userStars > 0 ? 'active-border' : 'inactive'}}.png" alt="1e ster" />
+                        <img class="star2" ng-src="images/star-cropped-{{ item.userStars > 1 ? 'active-border' : 'inactive'}}.png" alt="2e ster" />
+                        <img class="star3" ng-src="images/star-cropped-{{ item.userStars > 2 ? 'active-border' : 'inactive'}}.png" alt="3e ster" />
+                    </div>
                 </div>
             </div>
         </slider-selector>
