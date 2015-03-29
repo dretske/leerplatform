@@ -28,7 +28,7 @@ mainControllers.controller('TestsMenuCtrl',
                 }
 
                 function onTestsLoaded() {
-                    $scope.selectedItemIndex = $routeParams.testId ? getIndexForTest(parseInt($routeParams.testId)) : 0;
+                    $scope.selectedItemIndex = $routeParams.testId ? getIndexForTest($routeParams.testId) : 0;
                     AuthService.refreshCurrentUser(onUserRefreshed);
                     selectedItem = $scope.items[$scope.selectedItemIndex];
                 }

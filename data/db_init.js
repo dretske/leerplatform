@@ -3,7 +3,7 @@ var toIds = function(obj) {
 };
 
 conn = new Mongo();
-db = conn.getDB("test");
+db = conn.getDB("prod");
 
 db.getCollectionNames()
         .forEach(function(c) { 
@@ -20,7 +20,12 @@ var mathCategory = {
     _id : ObjectId(), 
     name: "math",
     title: "Rekenen",
-    imagePath: "images/mathMenuItem.png"
+    imagePath: "images/mathMenuItem.png",
+    subcategories: [
+        {
+            
+        }
+    ]
 };
 var readingCategory = {
     _id : ObjectId(), 

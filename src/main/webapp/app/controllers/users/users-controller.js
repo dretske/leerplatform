@@ -3,13 +3,13 @@
 var mainControllers = angular.module('mainControllers');
 
 mainControllers.controller('UsersCtrl',
-        ['$scope', '$location', '$routeParams', 'Users', 'AuthService', function ($scope, $location, $routeParams, Users, AuthService) {
+        ['$scope', '$location', 'Users', 'AuthService', function ($scope, $location, Users, AuthService) {
 
                 $scope.items = Users.query(onUsersLoaded);
                 var selectedUser = null;
 
                 function onUsersLoaded() {
-                    $scope.selectedItemIndex = $routeParams.selected ? getIndexForUser($routeParams.selected) : 0;
+                    $scope.selectedItemIndex = AuthService.currentUser() ? getIndexForUser(AuthService.currentUser().id) : 0;
                     selectedUser = $scope.items[$scope.selectedItemIndex];
                 }
 

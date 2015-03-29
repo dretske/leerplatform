@@ -7,7 +7,7 @@ mathControllers.controller('MathCtrl',
     function ($scope, $routeParams, EquationTestService, $timeout, $modal, $location, AuthService, $log) {
 
         var max = $routeParams.max;
-        var subtraction = $routeParams.subtraction === undefined ? true : $routeParams.subtraction;
+        var subtraction = $routeParams.subtraction === undefined ? true : $routeParams.subtraction === 'true';
         var graphical = $routeParams.graphical === undefined ? false : true;
         var withoutZero = graphical || ($routeParams.withoutZero === undefined ? false : true);
         
