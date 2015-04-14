@@ -20,6 +20,7 @@ var leerPlatformApp = angular.module('leerPlatformApp', [
   'mathServices',
   'ngResource',
   'ngDragDrop',
+  'ngCookies',
   'ngRoute',
   'ui.bootstrap'
 //  ,

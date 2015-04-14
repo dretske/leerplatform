@@ -71,7 +71,7 @@ public class UsersController {
     }
     
     @RequestMapping(value = "/{userId}/addtestscore", method = POST, consumes = "application/json")
-    public Response addTestScore(@PathVariable("userId") Long userId, @RequestParam("testId") Long testId, @RequestParam("score") int score) {
+    public UserWithTestScores addTestScore(@PathVariable("userId") Long userId, @RequestParam("testId") Long testId, @RequestParam("score") int score) {
         User user = userRepository.findOne(userId);
         Test test = testRepository.findOne(testId);
         
@@ -79,7 +79,7 @@ public class UsersController {
 
         template.save(testScore);
         
-        return Response.ok().build();
+        return user(userId);
     }
     
 }
