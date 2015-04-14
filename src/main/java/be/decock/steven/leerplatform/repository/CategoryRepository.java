@@ -1,8 +1,8 @@
 package be.decock.steven.leerplatform.repository;
 
-import be.decock.steven.leerplatform.domain.Category;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import be.decock.steven.leerplatform.domain.neo4j.Category;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
-public interface CategoryRepository extends MongoRepository<Category, String> {
+public interface CategoryRepository extends GraphRepository<Category> {
     
 }

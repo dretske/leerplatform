@@ -16,11 +16,13 @@ mainControllers.controller('TestsMenuCtrl',
                 }
                 
                 function getMaxTestScoreForUser(test, user) {
-                    if (user.testScores[test.id]) {
-                        return user.testScores[test.id].maxScore;
-                    } else {
-                        return -1;
+                    for (var i = 0; i < user.testScores.length; i++) {
+                        if (user.testScores[i].test.id === test.id) {
+                            return user.testScores[i].maxScore;
+                        }
                     }
+                    
+                    return -1;
                 }
                 
                 function onUserRefreshed() {
@@ -39,13 +41,14 @@ mainControllers.controller('TestsMenuCtrl',
                     selectedItem = item;
                 };
                 
-                function addPathParamToLocation(pathParam) {
-                    $location.search(pathParam.name, pathParam.value);
-                }
-
                 $scope.select = function () {
                     $location.path('/' + selectedItem.path);
-                    selectedItem.pathParams.forEach(addPathParamToLocation);
+                    
+                    for (var param in selectedItem.pathParams) {
+                        if( selectedItem.pathParams.hasOwnProperty(param) ) {
+                            $location.search(param, selectedItem.pathParams[param]);
+                        } 
+                    } 
                     $location.search('testId', selectedItem.id);
                     $location.search('category', $scope.category.id);
                 };

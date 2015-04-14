@@ -1,8 +1,9 @@
 package be.decock.steven.leerplatform.repository;
 
-import be.decock.steven.leerplatform.domain.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import be.decock.steven.leerplatform.domain.neo4j.User;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends GraphRepository<User> {
     
+ 
 }
