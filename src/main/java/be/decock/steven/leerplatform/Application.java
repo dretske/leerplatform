@@ -23,8 +23,11 @@ public class Application {
             
             @Bean
             GraphDatabaseService graphDatabaseService() {
+                String grapheneDbUrl = System.getProperty("GRAPHENEDB_URL");
+                if (grapheneDbUrl != null) {
+                    return new SpringRestGraphDatabase(grapheneDbUrl);
+                }
                 return new SpringRestGraphDatabase("http://localhost:7474/db/data");
-//                return new GraphDatabaseFactory().newEmbeddedDatabase("C:/data/neo4j/leerplatform");
             }   
 
     }
