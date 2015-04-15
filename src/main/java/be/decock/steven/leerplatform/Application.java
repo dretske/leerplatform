@@ -23,7 +23,7 @@ public class Application {
             
             @Bean
             GraphDatabaseService graphDatabaseService() {
-                String grapheneDbUrl = System.getProperty("GRAPHENEDB_URL");
+                String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
                 if (grapheneDbUrl != null) {
                     return new SpringRestGraphDatabase(grapheneDbUrl);
                 }
