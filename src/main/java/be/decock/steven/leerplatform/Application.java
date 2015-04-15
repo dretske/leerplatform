@@ -25,6 +25,7 @@ public class Application {
             GraphDatabaseService graphDatabaseService() {
                 String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
                 if (grapheneDbUrl != null) {
+                    System.out.println("GrapheneDB: Connecting to " + grapheneDbUrl);
                     return new SpringRestGraphDatabase(grapheneDbUrl);
                 }
                 return new SpringRestGraphDatabase("http://localhost:7474/db/data");
