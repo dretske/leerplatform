@@ -24,10 +24,11 @@ public class Application {
             @Bean
             GraphDatabaseService graphDatabaseService() {
                 String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
-                if (grapheneDbUrl != null) {
-                    return new SpringRestGraphDatabase(grapheneDbUrl);
+                if (grapheneDbUrl == null) {
+                    grapheneDbUrl = "http://localhost:7474/db/data";
                 }
-                return new SpringRestGraphDatabase("http://localhost:7474/db/data");
+                System.out.println("Connecting to GrapheneDB with url " + grapheneDbUrl);
+                return new SpringRestGraphDatabase(grapheneDbUrl);
             }   
 
     }
