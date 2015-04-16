@@ -1,6 +1,9 @@
 package be.decock.steven.leerplatform;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import static com.google.common.base.Throwables.propagate;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +30,37 @@ public class Application {
             
             @Bean
             GraphDatabaseService graphDatabaseService() {
-                String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
-                if (grapheneDbUrl == null) {
-                    grapheneDbUrl = "http://localhost:7474";
+                try {
+                    String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
+                    if (grapheneDbUrl == null) {
+                        grapheneDbUrl = "http://localhost:7474";
+                    }
+                    grapheneDbUrl += "/db/data";
+                    LOGGER.info("Connecting to GrapheneDB with url " + grapheneDbUrl);
+                    URL url = new URL(grapheneDbUrl);
+                    if (hasUsernameAndPassword(url)) {
+                        String username = getUserNameFromUrl(url);
+                        String password = getPasswordFromUrl(url);
+                        return new SpringRestGraphDatabase(url.toString(), username, password);
+                    } else {
+                        return new SpringRestGraphDatabase(url.toString());
+                    }
+                } catch (MalformedURLException ex) {
+                    throw propagate(ex);
                 }
-                grapheneDbUrl += "/db/data";
-                LOGGER.info("Connecting to GrapheneDB with url " + grapheneDbUrl);
-                return new SpringRestGraphDatabase(grapheneDbUrl);
             }   
+
+        private boolean hasUsernameAndPassword(final URL url) {
+            return url.getUserInfo() != null;
+        }
+
+        private String getUserNameFromUrl(final URL url) {
+            return url.getUserInfo().split(":")[0];
+        }
+
+        private String getPasswordFromUrl(final URL url) {
+            return url.getUserInfo().split(":")[1];
+        }
 
     }
     
