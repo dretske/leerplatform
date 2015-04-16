@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     
-    <property name="FILE_LOG_PATTERN" value="%date %level [%thread] %logger{10} [%file:%line] %msg%n" />
-    <property name="LOG_FILE" value="d:/leerplatform.log" />
-    
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
     
-    <logger name="org.springframework.data.neo4j" level="DEBUG"/>
-    <logger name="org.springframework.data.neo4j.support.query" level="DEBUG"/>
+    <logger name="org.springframework.data.neo4j" level="INFO"/>
+    <logger name="org.springframework.data.neo4j.support.query" level="INFO"/>
     
+    <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <!--<appender-ref ref="FILE" />-->
+    </root>
+
 </configuration>

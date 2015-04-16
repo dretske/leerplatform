@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.2.RELEASE</version>
+        <version>1.2.3.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -78,4 +78,28 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>GrapheneDB</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                          <groupId>org.codehaus.mojo</groupId>
+                          <artifactId>exec-maven-plugin</artifactId>
+                          <version>1.2.1</version>
+                          <configuration>
+                            <systemProperties>
+                              <systemProperty>
+                                <key>GrapheneDbUrl</key>
+                                <value>http://app35887368:GkTtgpuobz4QXAvizvfa@app35887368.sb04.stations.graphenedb.com:24789</value>
+                              </systemProperty>
+                            </systemProperties>
+                          </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -2,6 +2,8 @@ package be.decock.steven.leerplatform;
 
 import java.io.IOException;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,22 +14,25 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 public class Application {
     
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+    
     @SpringBootApplication
     @EnableNeo4jRepositories(basePackages = "be.decock.steven.leerplatform")
     @EnableTransactionManagement
     static class ApplicationConfig extends Neo4jConfiguration {
 
             public ApplicationConfig() {
-                    setBasePackage("be.decock.steven.leerplatform.domain.neo4j");
+                setBasePackage("be.decock.steven.leerplatform.domain.neo4j");
             }
             
             @Bean
             GraphDatabaseService graphDatabaseService() {
                 String grapheneDbUrl = System.getProperty("GrapheneDbUrl");
                 if (grapheneDbUrl == null) {
-                    grapheneDbUrl = "http://localhost:7474/db/data";
+                    grapheneDbUrl = "http://localhost:7474";
                 }
-                System.out.println("Connecting to GrapheneDB with url " + grapheneDbUrl);
+                grapheneDbUrl += "/db/data";
+                LOGGER.info("Connecting to GrapheneDB with url " + grapheneDbUrl);
                 return new SpringRestGraphDatabase(grapheneDbUrl);
             }   
 
