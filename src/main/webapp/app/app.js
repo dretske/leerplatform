@@ -62,7 +62,7 @@ leerPlatformApp.config(function ($routeProvider, $locationProvider) {
                 controller: 'AddUserCtrl'
             })
             .otherwise({
-                redirectTo: '/categories'
+                redirectTo: '/users'
             });
 
     // configure html5 to get links working on jsfiddle

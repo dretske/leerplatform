@@ -1,5 +1,6 @@
 package be.decock.steven.leerplatform.domain.neo4j;
 
+import java.util.Set;
 import static org.neo4j.graphdb.Direction.INCOMING;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;

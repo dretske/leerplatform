@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.http.HttpHeaders;
@@ -70,7 +69,7 @@ public class UsersController {
         return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
     }
     
-    @RequestMapping(value = "/{userId}/addtestscore", method = POST, consumes = "application/json")
+    @RequestMapping(value = "/{userId}/addtestscore", method = POST)
     public UserWithTestScores addTestScore(@PathVariable("userId") Long userId, @RequestParam("testId") Long testId, @RequestParam("score") int score) {
         User user = userRepository.findOne(userId);
         Test test = testRepository.findOne(testId);

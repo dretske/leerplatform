@@ -2,7 +2,6 @@ package be.decock.steven.leerplatform.domain.neo4j;
 
 import java.util.HashMap;
 import java.util.Map;
-import jersey.repackaged.com.google.common.base.Throwables;
 import static jersey.repackaged.com.google.common.base.Throwables.propagate;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -23,6 +22,8 @@ public class Test {
 
     @RelatedToVia(type = "FINISHED_TEST", direction = INCOMING)
     public Iterable<TestScore> scores;
+    
+    public Category category;
 
     public Long getId() {
         return id;

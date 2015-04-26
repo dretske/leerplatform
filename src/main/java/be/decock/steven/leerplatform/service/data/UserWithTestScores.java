@@ -8,6 +8,11 @@ public class UserWithTestScores {
     private final User user;
     private final Iterable<TestRepository.MaxTestScore> testScores;
     
+    protected UserWithTestScores() {
+        user = null;
+        testScores = null;
+    }
+    
     public UserWithTestScores(User user, Iterable<TestRepository.MaxTestScore> testScores) {
         this.user = user;
         this.testScores = testScores;
