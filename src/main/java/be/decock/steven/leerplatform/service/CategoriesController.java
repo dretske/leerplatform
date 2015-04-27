@@ -5,6 +5,7 @@ import be.decock.steven.leerplatform.repository.CategoryRepository;
 import java.util.Set;
 import static jersey.repackaged.com.google.common.collect.Sets.newHashSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/categories")
+@Transactional
 public class CategoriesController {
 
     @Autowired

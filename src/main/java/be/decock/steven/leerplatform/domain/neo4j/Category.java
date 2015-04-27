@@ -1,8 +1,6 @@
 package be.decock.steven.leerplatform.domain.neo4j;
 
-import java.util.Set;
-import static org.neo4j.graphdb.Direction.INCOMING;
-import org.springframework.data.neo4j.annotation.Fetch;
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -17,8 +15,11 @@ public class Category {
     public String title;
     public String imagePath;
 
-    @Fetch @RelatedTo(type="PART_OF", direction = INCOMING)
-    public Iterable<Test> tests;
+    @RelatedTo(type="START", direction = Direction.OUTGOING)
+    public LearningActivity startActivity;
+
+//    @Fetch @RelatedTo(type="PART_OF", direction = INCOMING)
+//    public Iterable<Test> tests;
 
     public Long getId() {
         return id;

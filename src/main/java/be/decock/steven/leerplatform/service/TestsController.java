@@ -21,10 +21,10 @@ public class TestsController {
     @Autowired
     private TestRepository testRepository;
     
-    @RequestMapping(method = GET, produces = "application/json")
-    public Iterable<Test> testsForCategory(@RequestParam("categoryId") Long categoryId) {
-        return categoryRepository.findOne(categoryId).tests;
-    }
+//    @RequestMapping(method = GET, produces = "application/json")
+//    public Iterable<Test> testsForCategory(@RequestParam("categoryId") Long categoryId) {
+//        return categoryRepository.findOne(categoryId).tests;
+//    }
     
     @RequestMapping(value = "/{testId}", method = GET, produces = "application/json")
     public Test test(@PathVariable Long testId) {

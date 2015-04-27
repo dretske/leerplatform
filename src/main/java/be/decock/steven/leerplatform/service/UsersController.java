@@ -70,11 +70,15 @@ public class UsersController {
     }
     
     @RequestMapping(value = "/{userId}/addtestscore", method = POST)
-    public UserWithTestScores addTestScore(@PathVariable("userId") Long userId, @RequestParam("testId") Long testId, @RequestParam("score") int score) {
+    public UserWithTestScores addTestScore(
+            @PathVariable("userId") Long userId, 
+            @RequestParam("testId") Long testId, 
+            @RequestParam("score") int score) {
+        
         User user = userRepository.findOne(userId);
         Test test = testRepository.findOne(testId);
         
-        TestScore testScore = new TestScore(user, test, score);
+        TestScore testScore = new TestScore(user, test, score, score > test.passPercentage);
 
         template.save(testScore);
         

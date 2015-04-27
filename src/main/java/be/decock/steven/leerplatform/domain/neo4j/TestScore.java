@@ -19,15 +19,17 @@ public class TestScore {
     Test test;
     
     public int score;
+    public boolean passed;
     public Date date;
 
     TestScore() {
     }
 
-    public TestScore(User user, Test test, int score) {
+    public TestScore(User user, Test test, int score, boolean passed) {
         this.user = user;
         this.test = test;
         this.score = score;
+        this.passed = passed;
         this.date = new Date();
     }
     
