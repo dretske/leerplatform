@@ -1,7 +1,5 @@
 'use strict';
 
-/* Services */
-
 var mathServices = angular.module('mathServices');
 
 mathServices.factory('CountingExerciseGenerator', ['CommonServices',

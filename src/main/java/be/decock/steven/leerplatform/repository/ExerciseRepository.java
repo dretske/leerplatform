@@ -1,34 +1,35 @@
 package be.decock.steven.leerplatform.repository;
 
-import be.decock.steven.leerplatform.domain.neo4j.Test;
+import be.decock.steven.leerplatform.domain.neo4j.Exercise;
+import be.decock.steven.leerplatform.domain.neo4j.Score;
 import be.decock.steven.leerplatform.domain.neo4j.User;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.annotation.ResultColumn;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
-public interface TestRepository extends GraphRepository<Test> {
+public interface ExerciseRepository extends GraphRepository<Exercise> {
     
     @Query("start user=node({0}) " + 
-            "match (user)-[r:FINISHED_TEST]-(test)" + 
-            "return test, MAX(r.score)")
-    Iterable<MaxTestScore> findMaxTestScoresForUser(User user); 
+            "match (user)-[score:FINISHED]-(exercise)" + 
+            "return score, MAX(score.score)")
+    Iterable<MaxScore> findMaxScoresForUser(User user); 
         
     @QueryResult
-    public static class MaxTestScore {
+    public static class MaxScore {
         
-        @ResultColumn("test")
-        private Test test;
+        @ResultColumn("score")
+        private Score score;
 
-        @ResultColumn("MAX(r.score)")
+        @ResultColumn("MAX(score.score)")
         private Integer maxScore;
 
-        public Test getTest() {
-            return test;
+        public Score getScore() {
+            return score;
         }
 
-        public void setTest(Test test) {
-            this.test = test;
+        public void setScore(Score score) {
+            this.score = score;
         }
         
         public Integer getMaxScore() {

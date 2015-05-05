@@ -3,8 +3,8 @@
 var writingControllers = angular.module('writingControllers');
 
 writingControllers.controller('WritingCtrl', 
-    ['$scope', '$routeParams', 'WritingTestService', 'CommonServices', '$timeout', '$modal', '$location', 'AuthService',
-    function ($scope, $routeParams, WritingTestService, CommonServices, $timeout, $modal, $location, AuthService) {
+    ['$scope', '$routeParams', 'WritingExerciseService', 'CommonServices', '$timeout', '$modal', '$location', 'AuthService',
+    function ($scope, $routeParams, WritingExerciseService, CommonServices, $timeout, $modal, $location, AuthService) {
         
         $scope.exerciseOptions = {
         };
@@ -64,13 +64,13 @@ writingControllers.controller('WritingCtrl',
             }
         };
         
-        var testCtrl = new TestCtrl($scope, $routeParams, 
-            WritingTestService, $timeout, $modal, $location, AuthService,
+        var exerciseCtrl = new ExerciseCtrl($scope, $routeParams, 
+            WritingExerciseService, $timeout, $modal, $location, AuthService,
             {
                 nextExercise: nextExerciseCallback,
                 showSolution: showSolutionCallback
             });
-        testCtrl.init();
+        exerciseCtrl.init();
         
         $scope.buildAndSubmitAnswer = function() {
             var letters = [];

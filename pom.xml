@@ -38,9 +38,15 @@
             <version>18.0</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>1.7.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -81,17 +87,17 @@
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                          <groupId>org.codehaus.mojo</groupId>
-                          <artifactId>exec-maven-plugin</artifactId>
-                          <version>1.2.1</version>
-                          <configuration>
-                            <systemProperties>
-                              <systemProperty>
-                                <key>GrapheneDbUrl</key>
-                                <value>http://app35887368:GkTtgpuobz4QXAvizvfa@app35887368.sb04.stations.graphenedb.com:24789</value>
-                              </systemProperty>
-                            </systemProperties>
-                          </configuration>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>exec-maven-plugin</artifactId>
+                            <version>1.2.1</version>
+                            <configuration>
+                                <systemProperties>
+                                    <systemProperty>
+                                        <key>GrapheneDbUrl</key>
+                                        <value>http://app35887368:GkTtgpuobz4QXAvizvfa@app35887368.sb04.stations.graphenedb.com:24789</value>
+                                    </systemProperty>
+                                </systemProperties>
+                            </configuration>
                         </plugin>
                     </plugins>
                 </pluginManagement>

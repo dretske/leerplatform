@@ -115,15 +115,15 @@ html, body {
     margin-top: 30px;
 }
 
-.testsMenu.math {
+.exercisesMenu.math {
     background-image: url("../images/rekenenBackground-blurred.png");
 }
 
-.testsMenu.reading {
+.exercisesMenu.reading {
     background-image: url("../images/lezenBackground-blurred.png");
 }
 
-.testsMenu.writing {
+.exercisesMenu.writing {
     background-image: url("../images/schrijvenBackground-blurred.png");
 }
 
@@ -140,7 +140,7 @@ html, body {
     margin: 10px 10px 10px 10px;
 }
 
-.menu > .testsPanel {
+.menu > .exercisesPanel {
     -webkit-box-flex: 1 1 auto;
     flex: 1 1 auto;
 }
@@ -199,7 +199,7 @@ html, body {
     width: 300px;
 }
 
-.testsMenuItem {
+.exercisesMenuItem {
     width: 500px;
     height: 400px;
     background-color: white;
@@ -212,19 +212,19 @@ html, body {
     -webkit-flex-direction: column;
 }
 
-.testsMenuItem .title {
+.exercisesMenuItem .title {
     background-color: lightblue;
     font-size: 5em;
     flex-grow: 1;
 }
 
-.testsMenuItem .subtitle {
+.exercisesMenuItem .subtitle {
     font-size: 5.5em;
     flex-grow: 1;
     -webkit-box-flex: 1;
 }
 
-.testsMenuItem .level {
+.exercisesMenuItem .level {
     background-color: lightgrey;
     font-size: 5.5em;
     flex-grow: 1;

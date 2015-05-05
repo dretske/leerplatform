@@ -1,10 +1,12 @@
 package be.decock.steven.leerplatform.domain.neo4j;
 
-import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.neo4j.annotation.NodeEntity;
+import static be.decock.steven.leerplatform.domain.neo4j.LearningActivity.LearningActivityType.LESSON;
 
-@NodeEntity
-@TypeAlias("Lesson")
 public class Lesson extends LearningActivity {
+
+    @Override
+    public LearningActivityType getType() {
+        return LESSON;
+    }
     
 }

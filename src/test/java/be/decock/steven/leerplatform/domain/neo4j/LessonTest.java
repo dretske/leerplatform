@@ -6,9 +6,7 @@
 package be.decock.steven.leerplatform.domain.neo4j;
 
 import java.util.Map;
-import jersey.repackaged.com.google.common.collect.Maps;
 import static jersey.repackaged.com.google.common.collect.Maps.newHashMap;
-import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -27,13 +25,13 @@ public class LessonTest {
         
         lesson.setPathParams(pathParams);
         
-        assertThat(lesson.pathParamsAsJSON).isEqualTo("{\"paramKey\":\"paramValue\",\"paramKey2\":\"paramValue2\"}");
+        assertThat(lesson.getPathParamsAsJSON()).isEqualTo("{\"paramKey\":\"paramValue\",\"paramKey2\":\"paramValue2\"}");
     }
     
     @org.junit.Test
     public void pathParamsFromJson() {
         Lesson lesson = new Lesson();
-        lesson.pathParamsAsJSON = "{\"paramKey\":\"paramValue\",\"paramKey2\":\"paramValue2\"}";
+        lesson.setPathParamsAsJSON("{\"paramKey\":\"paramValue\",\"paramKey2\":\"paramValue2\"}");
         
         assertThat(lesson.getPathParams()).hasSize(2);
         assertThat(lesson.getPathParams().get("paramKey")).isEqualTo("paramValue");

@@ -17,65 +17,64 @@ CREATE (writingCategory:Category:_Category {
     imagePath: "images/writingMenuItem.png"
 })
 
-CREATE (mathTest1:Test:_Test {
+CREATE (mathExercise1:LearningActivity:Exercise:_Exercise {
     title: 'Optellen',
     subTitle: '1 tot 3',
     path: 'math',
-    pathParams: '{"max": "3", "graphical": "true", "style": "apple", "subtraction": "false"}'
+    pathParamsAsJSON: '{"max": "3", "graphical": "true", "style": "apple", "subtraction": "false"}'
 })
-CREATE (mathTest2:Test:_Test {
+CREATE (mathExercise2:LearningActivity:Exercise:_Exercise {
     title: 'Optellen en aftrekken',
     subTitle: '1 tot 3',
     path: 'math',
-    pathParams: '{"max": "3", "graphical": "true", "style": "ijsjes", "subtraction": "true"}'
+    pathParamsAsJSON: '{"max": "3", "graphical": "true", "style": "ijsjes", "subtraction": "true"}'
 })
-CREATE (mathTest3:Test:_Test {
+CREATE (mathExercise3:LearningActivity:Exercise:_Exercise {
     title: 'Optellen en aftrekken',
     subTitle: '1 tot 3',
     path: 'math',
-    pathParams: '{"max": "3", "withoutZero": "true", "subtraction": "true"}'
+    pathParamsAsJSON: '{"max": "3", "withoutZero": "true", "subtraction": "true"}'
 })
-CREATE (mathTest4:Test:_Test {
+CREATE (mathExercise4:LearningActivity:Exercise:_Exercise {
     title: 'Optellen en aftrekken',
     subTitle: '0 tot 5',
     path: 'math',
-    pathParams: '{"max": "5", "withoutZero": "false", "subtraction": "true"}'
+    pathParamsAsJSON: '{"max": "5", "withoutZero": "false", "subtraction": "true"}'
 })
-CREATE (mathTest5:Test:_Test {
+CREATE (mathExercise5:LearningActivity:Exercise:_Exercise {
     title: 'Optellen en aftrekken',
     subTitle: '0 tot 8',
     path: 'math',
-    pathParams: '{"max": "8", "withoutZero": "false", "subtraction": "true"}'
+    pathParamsAsJSON: '{"max": "8", "withoutZero": "false", "subtraction": "true"}'
 })
 
-CREATE (readingTest1:Test:_Test {
+CREATE (readingExercise1:LearningActivity:Exercise:_Exercise {
     title: 'Juist of Fout',
     subTitle: 'Makkelijk',
     path: 'reading',
-    pathParams: '{}'
+    pathParamsAsJSON: '{}'
 })
 
-CREATE (writingTest1:Test:_Test {
+CREATE (writingExercise1:LearningActivity:Exercise:_Exercise {
     title: 'Schrijven',
     subTitle: 'Woordjes 1',
     path: 'writing',
-    pathParams: '{"numberOfLettersKnown": "true"}'
+    pathParamsAsJSON: '{"numberOfLettersKnown": "true"}'
 })
-CREATE (writingTest2:Test:_Test {
+CREATE (writingExercise2:LearningActivity:Exercise:_Exercise {
     title: 'Schrijven',
     subTitle: 'Woordjes 2',
     path: 'writing',
-    pathParams: '{"numberOfLettersKnown": "false"}'
+    pathParamsAsJSON: '{"numberOfLettersKnown": "false"}'
 })
 
+CREATE (mathCategory)-[r:START]->(mathExercise1)
+CREATE (mathExercise1)-[r1:NEXT]->(mathExercise2)
+CREATE (mathExercise2)-[r2:NEXT]->(mathExercise3)
+CREATE (mathExercise3)-[r3:NEXT]->(mathExercise4)
+CREATE (mathExercise4)-[r4:NEXT]->(mathExercise5)
 
-CREATE (mathTest1)-[r:PART_OF]->(mathCategory)
-CREATE (mathTest2)-[r1:PART_OF]->(mathCategory)
-CREATE (mathTest3)-[r2:PART_OF]->(mathCategory)
-CREATE (mathTest4)-[r3:PART_OF]->(mathCategory)
-CREATE (mathTest5)-[r4:PART_OF]->(mathCategory)
+CREATE (readingCategory)-[r5:START]->(readingExercise1)
 
-CREATE (readingTest1)-[r7:PART_OF]->(readingCategory)
-
-CREATE (writingTest1)-[r8:PART_OF]->(writingCategory)
-CREATE (writingTest2)-[r9:PART_OF]->(writingCategory)
+CREATE (writingCategory)-[r6:START]->(writingExercise1)
+CREATE (writingExercise1)-[r7:NEXT]->(writingExercise2)

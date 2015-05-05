@@ -3,14 +3,17 @@ package be.decock.steven.leerplatform.user;
 import be.decock.steven.leerplatform.Application;
 import be.decock.steven.leerplatform.repository.CategoryRepository;
 import be.decock.steven.leerplatform.repository.LessonRepository;
-import be.decock.steven.leerplatform.repository.TestRepository;
+import be.decock.steven.leerplatform.repository.ExerciseRepository;
 import be.decock.steven.leerplatform.repository.UserRepository;
+import java.util.HashMap;
+import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TestTransaction;
@@ -28,12 +31,15 @@ public abstract class ControllerIntegrationTest {
  
     
     private final RestTemplate restTemplate = new TestRestTemplate();
+    
+    @Inject
+    private Neo4jTemplate neo4jTemplate;
         
     @Autowired
     private UserRepository userRepository;
         
     @Autowired
-    private TestRepository testRepository;
+    private ExerciseRepository testRepository;
         
     @Autowired
     private LessonRepository lessonRepository;
@@ -48,10 +54,8 @@ public abstract class ControllerIntegrationTest {
     
     @Before
     public void cleanup() {
-        userRepository.deleteAll();
-        testRepository.deleteAll();
-        lessonRepository.deleteAll();
-        categoryRepository.deleteAll();
+        neo4jTemplate.query("MATCH ()-[r]-() DELETE r", new HashMap<>());
+        neo4jTemplate.query("MATCH (n) DELETE n", new HashMap<>());
         
         addTestData();
         
@@ -74,7 +78,7 @@ public abstract class ControllerIntegrationTest {
         return userRepository;
     }
 
-    protected TestRepository getTestRepository() {
+    protected ExerciseRepository getExerciseRepository() {
         return testRepository;
     }
 
@@ -84,6 +88,10 @@ public abstract class ControllerIntegrationTest {
 
     protected CategoryRepository getCategoryRepository() {
         return categoryRepository;
+    }
+
+    protected Neo4jTemplate getNeo4jTemplate() {
+        return neo4jTemplate;
     }
     
 }

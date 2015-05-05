@@ -1,10 +1,8 @@
 'use strict';
 
-/* Services */
-
 var readingServices = angular.module('readingServices');
 
-readingServices.factory('ReadingTestService', ['CommonServices', function (CommonServices) {
+readingServices.factory('ReadingExerciseService', ['CommonServices', function (CommonServices) {
     
         var trueOrFalseExercises = [
             {question: 'De bal is rond', trueOrFalse: true},

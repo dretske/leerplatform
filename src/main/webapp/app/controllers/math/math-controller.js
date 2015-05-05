@@ -3,8 +3,8 @@
 var mathControllers = angular.module('mathControllers');
 
 mathControllers.controller('MathCtrl', 
-    ['$scope', '$routeParams', 'EquationTestService', '$timeout', '$modal', '$location', 'AuthService', '$log',
-    function ($scope, $routeParams, EquationTestService, $timeout, $modal, $location, AuthService, $log) {
+    ['$scope', '$routeParams', 'EquationExerciseService', '$timeout', '$modal', '$location', 'AuthService', '$log',
+    function ($scope, $routeParams, EquationExerciseService, $timeout, $modal, $location, AuthService, $log) {
 
         var max = $routeParams.max;
         var subtraction = $routeParams.subtraction === undefined ? true : $routeParams.subtraction === 'true';
@@ -16,8 +16,8 @@ mathControllers.controller('MathCtrl',
             maxConstantsSize: max, 
             subtraction: subtraction
         };
-        var testCtrl = new TestCtrl($scope, $routeParams, EquationTestService, $timeout, $modal, $location, AuthService);
-        testCtrl.init();
+        var exerciseCtrl = new ExerciseCtrl($scope, $routeParams, EquationExerciseService, $timeout, $modal, $location, AuthService);
+        exerciseCtrl.init();
 
         $scope.graphicStyle = $routeParams.style === undefined ? 'apple' : $routeParams.style;
         

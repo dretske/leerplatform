@@ -2,23 +2,31 @@
 
 var mainControllers = angular.module('mainControllers');
 
-mainControllers.controller('TestsMenuCtrl',
-        ['$scope', '$location', '$routeParams', 'Categories', 'Tests', 'AuthService', 
-            function ($scope, $location, $routeParams, Categories, Tests, AuthService) {
+mainControllers.controller('ExercisesMenuCtrl',
+        ['$scope', '$location', '$routeParams', 'Categories', 'AuthService', 
+            function ($scope, $location, $routeParams, Categories, AuthService) {
 
-                $scope.category = Categories.get({categoryId: $routeParams.category});
-                var selectedItem = null;
-                
-                function addUserScoreToTest(test) {
-                    test.userScore = getMaxTestScoreForUser(test, AuthService.currentUser());
-                    test.userStars = Math.max(0, test.userScore - 7);
-                    return test;
+                function onExercisesLoaded() {
+                    $scope.selectedItemIndex = $routeParams.exerciseId ? getIndexForExercise($routeParams.exerciseId) : 0;
+                    AuthService.refreshCurrentUser(onUserRefreshed);
+                    selectedItem = $scope.items[$scope.selectedItemIndex];
                 }
                 
-                function getMaxTestScoreForUser(test, user) {
-                    for (var i = 0; i < user.testScores.length; i++) {
-                        if (user.testScores[i].test.id === test.id) {
-                            return user.testScores[i].maxScore;
+                $scope.category = Categories.get({categoryId: $routeParams.category});
+                $scope.items = Categories.getLearningActivities({categoryId: $routeParams.category}, onExercisesLoaded);
+                
+                var selectedItem = null;
+                
+                function addUserScoreToExercise(exercise) {
+                    exercise.userScore = getMaxExerciseScoreForUser(exercise, AuthService.currentUser());
+                    exercise.userStars = Math.max(0, exercise.userScore - 7);
+                    return exercise;
+                }
+                
+                function getMaxExerciseScoreForUser(exercise, user) {
+                    for (var i = 0; i < user.maxScores.length; i++) {
+                        if (user.maxScores[i].exerciseId === exercise.id) {
+                            return user.maxScores[i].score;
                         }
                     }
                     
@@ -26,16 +34,8 @@ mainControllers.controller('TestsMenuCtrl',
                 }
                 
                 function onUserRefreshed() {
-                    $scope.items.forEach(addUserScoreToTest);
+                    $scope.items.forEach(addUserScoreToExercise);
                 }
-
-                function onTestsLoaded() {
-                    $scope.selectedItemIndex = $routeParams.testId ? getIndexForTest($routeParams.testId) : 0;
-                    AuthService.refreshCurrentUser(onUserRefreshed);
-                    selectedItem = $scope.items[$scope.selectedItemIndex];
-                }
-
-                $scope.items = Tests.query({categoryId: $routeParams.category}, onTestsLoaded);
                 
                 $scope.itemSelected = function (item) {
                     selectedItem = item;
@@ -49,7 +49,7 @@ mainControllers.controller('TestsMenuCtrl',
                             $location.search(param, selectedItem.pathParams[param]);
                         } 
                     } 
-                    $location.search('testId', selectedItem.id);
+                    $location.search('exerciseId', selectedItem.id);
                     $location.search('category', $scope.category.id);
                 };
 
@@ -58,9 +58,9 @@ mainControllers.controller('TestsMenuCtrl',
                     $location.path('/categories').search('selected', $routeParams.category);
                 };
 
-                function getIndexForTest(testId) {
+                function getIndexForExercise(exerciseId) {
                     for (var i = 0; i < $scope.items.length; i++) {
-                        if ($scope.items[i].id === testId) {
+                        if ($scope.items[i].id === exerciseId) {
                             return i;
                         }
                     }

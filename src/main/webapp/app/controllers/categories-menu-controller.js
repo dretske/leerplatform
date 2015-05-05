@@ -26,9 +26,9 @@ mainControllers.controller('CategoriesMenuCtrl', ['$scope', '$location', '$route
             selectedCategory = item;
         };
 
-        $scope.openTests = function () {
+        $scope.openExercises = function () {
             $location.search({});
-            $location.path('/tests').search('category', selectedCategory.id);
+            $location.path('/exercises').search('category', selectedCategory.id);
         };
         
         $scope.backToUsersMenu = function() {

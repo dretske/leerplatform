@@ -4,7 +4,7 @@
 
 var mathServices = angular.module('mathServices');
 
-mathServices.factory('EquationTestService', ['$log', 'CommonServices',
+mathServices.factory('EquationExerciseService', ['$log', 'CommonServices',
     function ($log, CommonServices) {
         var EquationDefinitionBuilder = function () {
             var lhsSize = 2;

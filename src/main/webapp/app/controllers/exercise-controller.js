@@ -1,9 +1,9 @@
 'use strict';
 
-var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, 
+var ExerciseCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout, 
         $modal, $location, AuthService, callbacks) {
 
-        var testId = $routeParams.testId;
+        var exerciseId = $routeParams.exerciseId;
         var categoryId = $routeParams.category;
         
         this.init = function() {
@@ -39,7 +39,7 @@ var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout,
                         callbacks.nextExercise($scope.currentExercise);
                     }
                 } else {
-                    AuthService.currentUser().$addTestScore({testId: testId, score: $scope.score});
+                    AuthService.currentUser().$addExerciseScore({exerciseId: exerciseId, score: $scope.score});
                     openResultPopup();
                 }
             };
@@ -94,7 +94,7 @@ var TestCtrl = function($scope, $routeParams, ExerciseGenerator, $timeout,
                 modalInstance.result.then(function (result) {
                     switch (result) {
                         case 'back':
-                            $location.path("/tests").search({testId: testId, category: categoryId});
+                            $location.path("/exercises").search({exerciseId: exerciseId, category: categoryId});
                             break;
                         case 'retry':
                             $scope.generateExercises();

@@ -45,9 +45,9 @@ leerPlatformApp.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'app/controllers/math/counting.html',
                 controller: 'CountingCtrl'
             })
-            .when('/tests', {
-                templateUrl: 'app/controllers/tests-menu.html',
-                controller: 'TestsMenuCtrl'
+            .when('/exercises', {
+                templateUrl: 'app/controllers/exercises-menu.html',
+                controller: 'ExercisesMenuCtrl'
             })
             .when('/categories', {
                 templateUrl: 'app/controllers/categories-menu.html',

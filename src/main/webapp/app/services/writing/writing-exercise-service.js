@@ -4,7 +4,7 @@
 
 var writingServices = angular.module('writingServices');
 
-writingServices.factory('WritingTestService', ['CommonServices', function (CommonServices) {
+writingServices.factory('WritingExerciseService', ['CommonServices', function (CommonServices) {
     
         var lettersVoorTagsMap = [
             {key: 'oe', value:['u']},

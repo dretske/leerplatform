@@ -1,16 +1,20 @@
 package be.decock.steven.leerplatform.service;
 
-import be.decock.steven.leerplatform.domain.neo4j.Test;
-import be.decock.steven.leerplatform.domain.neo4j.TestScore;
+import be.decock.steven.leerplatform.domain.neo4j.Exercise;
+import be.decock.steven.leerplatform.domain.neo4j.Score;
 import be.decock.steven.leerplatform.domain.neo4j.User;
-import be.decock.steven.leerplatform.repository.TestRepository;
+import be.decock.steven.leerplatform.repository.ExerciseRepository;
 import be.decock.steven.leerplatform.repository.UserRepository;
-import be.decock.steven.leerplatform.service.data.UserWithTestScores;
+import be.decock.steven.leerplatform.service.data.UserTO;
+import be.decock.steven.leerplatform.service.mapper.ScoreMapper;
+import be.decock.steven.leerplatform.service.mapper.UserMapper;
 import com.google.common.collect.Lists;
+import static com.google.common.collect.Lists.newArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.stream.Collectors;
+import javax.inject.Inject;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,32 +34,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Transactional
 public class UsersController {
     
-    @Autowired
+    @Inject
     private Neo4jTemplate template;
     
-    @Autowired
+    @Inject
     private UserRepository userRepository;
     
-    @Autowired
-    private TestRepository testRepository;
+    @Inject
+    private ExerciseRepository exerciseRepository;
+    
+    @Inject
+    private UserMapper userMapper;
+    
+    @Inject
+    private ScoreMapper scoreMapper;
     
     @RequestMapping(method = GET, produces = "application/json")
-    public List<User> users() {
+    public Iterable<UserTO> users() {
         Iterable<User> result = userRepository.findAll();
-        return Lists.newArrayList(result);
+        return userMapper.mapToTO(result);
     }
     
     @RequestMapping(value = "/{userId}", method = GET, produces = "application/json")
-    public UserWithTestScores user(@PathVariable Long userId) {
+    public UserTO user(@PathVariable Long userId) {
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);
         
         User user = userRepository.findOne(userId);
         
-        Iterable<TestRepository.MaxTestScore> maxTestScores = 
-                testRepository.findMaxTestScoresForUser(user);
+        UserTO userTO = userMapper.mapToTO(user);
+        userTO.maxScores = scoreMapper.mapToTO(newArrayList(maxScoresForUser(user)));
                 
-        return new UserWithTestScores(user, maxTestScores);
+        return userTO;
     }
     
     @RequestMapping(method = POST, consumes = "application/json")
@@ -69,20 +79,29 @@ public class UsersController {
         return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
     }
     
-    @RequestMapping(value = "/{userId}/addtestscore", method = POST)
-    public UserWithTestScores addTestScore(
+    @RequestMapping(value = "/{userId}/addexercisescore", method = POST)
+    public UserTO addExerciseScore(
             @PathVariable("userId") Long userId, 
-            @RequestParam("testId") Long testId, 
+            @RequestParam("exerciseId") Long exerciseId, 
             @RequestParam("score") int score) {
         
         User user = userRepository.findOne(userId);
-        Test test = testRepository.findOne(testId);
+        Exercise exercise = exerciseRepository.findOne(exerciseId);
         
-        TestScore testScore = new TestScore(user, test, score, score > test.passPercentage);
+        Score newScore = new Score(user, exercise, score, score > exercise.getPassPercentage());
 
-        template.save(testScore);
+        template.save(newScore);
         
         return user(userId);
+    }
+    
+    private List<Score> maxScoresForUser(User user) {
+        List<ExerciseRepository.MaxScore> maxScores = 
+                newArrayList(exerciseRepository.findMaxScoresForUser(user));
+        
+        return maxScores.stream()
+            .map(maxScore -> maxScore.getScore())
+            .collect(Collectors.toList());
     }
     
 }

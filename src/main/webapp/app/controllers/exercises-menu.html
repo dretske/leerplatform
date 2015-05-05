@@ -1,17 +1,17 @@
-<div class="menu testsMenu {{category.name}}">
+<div class="menu exercisesMenu {{category.name}}">
     <div class="titelPanel">
         <div class="menuTitle">
             {{category.title}}
         </div>
     </div>
-    <div class="testsPanel">
+    <div class="exercisesPanel">
         <slider-selector items="items" 
                         on-selected="itemSelected" 
                         on-click="select"
                         image-width="500"
                         spacing="50"
                         selected-item-index="selectedItemIndex">
-            <div class="testsMenuItem" style="margin-right: {{spacing}}px">
+            <div class="exercisesMenuItem" style="margin-right: {{spacing}}px">
                 <div class="title">
                     {{item.title}}
                 </div>
