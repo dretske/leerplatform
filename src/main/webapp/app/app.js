@@ -33,6 +33,14 @@ leerPlatformApp.config(function ($routeProvider, $locationProvider) {
                 templateUrl: 'app/controllers/math/math.html',
                 controller: 'MathCtrl'
             })
+            .when('/math/numbers/lesson', {
+                templateUrl: 'app/controllers/math/numbers/numbers-lesson.html',
+                controller: 'MathNumbersLessonCtrl'
+            })
+            .when('/math/numbers/exercise', {
+                templateUrl: 'app/controllers/math/numbers/numbers-exercise.html',
+                controller: 'MathNumbersExerciseCtrl'
+            })
             .when('/reading', {
                 templateUrl: 'app/controllers/reading/reading.html',
                 controller: 'ReadingCtrl'
@@ -47,6 +55,10 @@ leerPlatformApp.config(function ($routeProvider, $locationProvider) {
             })
             .when('/exercises', {
                 templateUrl: 'app/controllers/exercises-menu.html',
+                controller: 'ExercisesMenuCtrl'
+            })
+            .when('/exercises2', {
+                templateUrl: 'app/controllers/exercises-menu2.html',
                 controller: 'ExercisesMenuCtrl'
             })
             .when('/categories', {

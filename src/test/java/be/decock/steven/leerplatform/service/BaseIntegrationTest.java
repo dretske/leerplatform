@@ -1,37 +1,31 @@
-package be.decock.steven.leerplatform.user;
+package be.decock.steven.leerplatform.service;
 
 import be.decock.steven.leerplatform.Application;
 import be.decock.steven.leerplatform.repository.CategoryRepository;
-import be.decock.steven.leerplatform.repository.LessonRepository;
 import be.decock.steven.leerplatform.repository.ExerciseRepository;
+import be.decock.steven.leerplatform.repository.LessonRepository;
+import be.decock.steven.leerplatform.repository.ScoreRepository;
 import be.decock.steven.leerplatform.repository.UserRepository;
 import java.util.HashMap;
 import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TestTransaction;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest({"server.port=9000"})
 @ActiveProfiles("EmbeddedNeo4J")
 @Transactional
-public abstract class ControllerIntegrationTest {
- 
-    
-    private final RestTemplate restTemplate = new TestRestTemplate();
-    
+public abstract class BaseIntegrationTest {
+
     @Inject
     private Neo4jTemplate neo4jTemplate;
         
@@ -39,18 +33,16 @@ public abstract class ControllerIntegrationTest {
     private UserRepository userRepository;
         
     @Autowired
-    private ExerciseRepository testRepository;
+    private ExerciseRepository exerciseRepository;
+        
+    @Autowired
+    private ScoreRepository scoreRepository;
         
     @Autowired
     private LessonRepository lessonRepository;
     
     @Autowired
     private CategoryRepository categoryRepository;
-
-
-    protected RestTemplate getRestTemplate() {
-        return restTemplate;
-    }
     
     @Before
     public void cleanup() {
@@ -79,7 +71,11 @@ public abstract class ControllerIntegrationTest {
     }
 
     protected ExerciseRepository getExerciseRepository() {
-        return testRepository;
+        return exerciseRepository;
+    }
+
+    public ScoreRepository getScoreRepository() {
+        return scoreRepository;
     }
 
     protected LessonRepository getLessonRepository() {
@@ -93,5 +89,5 @@ public abstract class ControllerIntegrationTest {
     protected Neo4jTemplate getNeo4jTemplate() {
         return neo4jTemplate;
     }
-    
+
 }

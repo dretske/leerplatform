@@ -84,6 +84,35 @@ mainServices.factory('CommonServices', [
             return null;
         }
         
+        function splitIntoSmallerArrays(array, min, max) {
+            var result = [];
+            var currentIndex = 0;
+            var numberOfElementsInSubArray;
+            if (array.length < min) {
+                result.push(array);
+                return result;
+            }
+            while (currentIndex < array.length) {
+                var elementsLeftInArray = array.length - currentIndex;;
+                var subArray = [];
+                numberOfElementsInSubArray = randomNumberBetween(min, Math.min(elementsLeftInArray, max));
+                var newElementsLeftInArray = elementsLeftInArray - numberOfElementsInSubArray;
+                
+                while (newElementsLeftInArray > 0 && newElementsLeftInArray < min) {
+                    numberOfElementsInSubArray = randomNumberBetween(min, Math.min(elementsLeftInArray, max));
+                    newElementsLeftInArray = elementsLeftInArray - numberOfElementsInSubArray;
+                }
+                
+                for (var i=currentIndex; i < currentIndex + numberOfElementsInSubArray; i++) {
+                    subArray.push(array[i]);
+                }
+                
+                result.push(subArray);
+                currentIndex += numberOfElementsInSubArray;
+            }
+            return result;
+        }
+        
         return {
             createAndFillArray: createAndFillArray,
             getFromKeyValueArray: getFromKeyValueArray,
@@ -94,7 +123,8 @@ mainServices.factory('CommonServices', [
             randomBoolean: randomBoolean,
             randomNumberBetween: randomNumberBetween,
             randomArrayElement: randomArrayElement,
-            generateNumberArray: generateNumberArray
+            generateNumberArray: generateNumberArray,
+            splitIntoSmallerArrays: splitIntoSmallerArrays
         };
     }
 ]);

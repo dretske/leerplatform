@@ -19,7 +19,8 @@ public class Category {
     private String name;
     private String title;
     private String imagePath;
-    
+    private String grouping;
+
     @RelatedTo(type="START", direction = Direction.OUTGOING)
     private LearningActivity startActivity;
 
@@ -49,6 +50,14 @@ public class Category {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getGrouping() {
+        return grouping;
+    }
+
+    public void setGrouping(String grouping) {
+        this.grouping = grouping;
     }
 
     public LearningActivity getStartActivity() {

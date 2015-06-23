@@ -3,18 +3,20 @@
 var mainControllers = angular.module('mainControllers');
 
 mainControllers.controller('ExercisesMenuCtrl',
-        ['$scope', '$location', '$routeParams', 'Categories', 'AuthService', 
-            function ($scope, $location, $routeParams, Categories, AuthService) {
+        ['$scope', '$location', '$routeParams', 'Categories', 'AuthService', 'CommonServices', 
+            function ($scope, $location, $routeParams, Categories, AuthService, CommonServices) {
 
                 function onExercisesLoaded() {
                     $scope.selectedItemIndex = $routeParams.exerciseId ? getIndexForExercise($routeParams.exerciseId) : 0;
                     AuthService.refreshCurrentUser(onUserRefreshed);
                     selectedItem = $scope.items[$scope.selectedItemIndex];
+                    
+                    $scope.itemRows = CommonServices.splitIntoSmallerArrays($scope.items, 2, 3);
                 }
                 
                 $scope.category = Categories.get({categoryId: $routeParams.category});
                 $scope.items = Categories.getLearningActivities({categoryId: $routeParams.category}, onExercisesLoaded);
-                
+
                 var selectedItem = null;
                 
                 function addUserScoreToExercise(exercise) {

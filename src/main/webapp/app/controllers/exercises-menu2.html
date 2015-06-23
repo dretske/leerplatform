@@ -1,0 +1,13 @@
+<ul class="activity-tree">
+    <li ng-repeat="row in itemRows" class="activity-tree-row row-{{$index}}">
+        <span ng-repeat="activity in row" id="activity-{{$parent$index}}-{{$index}}" class="skill-{{$index}}">
+            <a href="/skill/es/Basics-1" class="fade-this-in activity-badge-big" style="opacity: 1;">
+                <span class="activity-icon big gold">
+                    <span class="activity-icon-image activity-icon-1"></span>
+                    <span class="activity-icon-strength activity-icon-strength-big strength-5"></span>
+                </span>
+                <span class="activity-badge-name">{{activity.subTitle}}</span>
+            </a>
+        </span>
+    </li>
+</ul>

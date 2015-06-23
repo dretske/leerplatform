@@ -4,30 +4,29 @@ import be.decock.steven.leerplatform.domain.neo4j.Exercise;
 import be.decock.steven.leerplatform.domain.neo4j.Score;
 import be.decock.steven.leerplatform.domain.neo4j.User;
 import be.decock.steven.leerplatform.repository.ExerciseRepository;
+import be.decock.steven.leerplatform.repository.ScoreRepository;
 import be.decock.steven.leerplatform.repository.UserRepository;
 import be.decock.steven.leerplatform.service.data.UserTO;
 import be.decock.steven.leerplatform.service.mapper.ScoreMapper;
 import be.decock.steven.leerplatform.service.mapper.UserMapper;
-import com.google.common.collect.Lists;
-import static com.google.common.collect.Lists.newArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.inject.Inject;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.inject.Inject;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static be.decock.steven.leerplatform.domain.neo4j.Score.ScoreBuilder.aScore;
+import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/rest/users")
@@ -42,6 +41,9 @@ public class UsersController {
     
     @Inject
     private ExerciseRepository exerciseRepository;
+    
+    @Inject
+    private ScoreRepository scoreRepository;
     
     @Inject
     private UserMapper userMapper;
@@ -63,7 +65,7 @@ public class UsersController {
         User user = userRepository.findOne(userId);
         
         UserTO userTO = userMapper.mapToTO(user);
-        userTO.maxScores = scoreMapper.mapToTO(newArrayList(maxScoresForUser(user)));
+        userTO.maxScores = scoreMapper.mapToTO(newArrayList(highScoresForUser(user)));
                 
         return userTO;
     }
@@ -88,20 +90,28 @@ public class UsersController {
         User user = userRepository.findOne(userId);
         Exercise exercise = exerciseRepository.findOne(exerciseId);
         
-        Score newScore = new Score(user, exercise, score, score > exercise.getPassPercentage());
+        Score currentHighScore = scoreRepository.getHighScoreByUserAndExercise(user, exercise);
+        Date now = new Date();
+        
+        boolean isHighscore = currentHighScore == null || score > currentHighScore.getScore();
+        if (isHighscore && currentHighScore != null) {
+            currentHighScore.setHighscore(false);
+            template.save(currentHighScore);
+        }
+        Score newScore = aScore()
+                .withUser(user)
+                .withExercise(exercise)
+                .withScore(score)
+                .withHighscore(isHighscore)
+                .build();
 
         template.save(newScore);
-        
+
         return user(userId);
     }
-    
-    private List<Score> maxScoresForUser(User user) {
-        List<ExerciseRepository.MaxScore> maxScores = 
-                newArrayList(exerciseRepository.findMaxScoresForUser(user));
-        
-        return maxScores.stream()
-            .map(maxScore -> maxScore.getScore())
-            .collect(Collectors.toList());
+
+    private List<Score> highScoresForUser(User user) {
+        return newArrayList(exerciseRepository.findHighScoresForUser(user));
     }
-    
+
 }

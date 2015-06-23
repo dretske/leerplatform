@@ -1,10 +1,7 @@
 package be.decock.steven.leerplatform.service;
 
-import be.decock.steven.leerplatform.repository.ExerciseRepository;
 import be.decock.steven.leerplatform.repository.LessonRepository;
-import be.decock.steven.leerplatform.service.data.ExerciseTO;
 import be.decock.steven.leerplatform.service.data.LessonTO;
-import be.decock.steven.leerplatform.service.mapper.ExerciseMapper;
 import be.decock.steven.leerplatform.service.mapper.LessonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

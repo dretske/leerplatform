@@ -13,7 +13,7 @@ public class Exercise extends LearningActivity {
 
     @RelatedToVia(type = "FINISHED", direction = INCOMING)
     private Iterable<Score> scores;
-
+    
     @Override
     public LearningActivityType getType() {
         return TEST;

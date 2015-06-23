@@ -1,7 +1,6 @@
 package be.decock.steven.leerplatform.domain.neo4j;
 
 import static be.decock.steven.leerplatform.config.Beans.getBean;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import static java.util.Collections.EMPTY_LIST;

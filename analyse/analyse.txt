@@ -17,62 +17,62 @@ Leertraject Rekenen
 
 Categorie 1 : De getallen 1 t.e.m. 9
 
-Les 1: De getallen 1, 2  en 3
+	Les 1: De getallen 1, 2  en 3
 
-	- Eén appel wordt getoond. Stem zegt: 'Dit is - één - appel'.
-	- Gebruiker klikt op 'volgende' pijl
-	- Het getal 1 wordt getoond. Stem zegt 'Dit is het getal één'.
-	- Gebruiker klikt op 'volgende' pijl
-	- Twee appels worden getoond. Stem zegt: Dit zijn - twee - appels.
-	- Gebruiker klikt op 'volgende' pijl
-	- Het getal 2 wordt getoond. Stem zegt 'Dit is het getal twee'.
-	- Drie appels worden getoond. Stem zegt: Dit zijn - drie - appels.
-	- Gebruiker klikt op 'volgende' pijl
-	- Het getal 3 wordt getoond. Stem zegt 'Dit is het getal drie'.
-	- Gebruiker klikt op 'volgende' pijl
-	- De getallen één, twee en drie worden één na één herhaald, samen met het bijhorende 
-	aantal appels.
-	- Gebruiker klikt op 'volgende' pijl en keer terug naar overzicht.
-	
-Oefening 1: De getallen 1, 2  en 3
+		- Eén appel wordt getoond. Stem zegt: 'Dit is - één - appel'.
+		- Gebruiker klikt op 'volgende' pijl
+		- Het getal 1 wordt getoond. Stem zegt 'Dit is het getal één'.
+		- Gebruiker klikt op 'volgende' pijl
+		- Twee appels worden getoond. Stem zegt: Dit zijn - twee - appels.
+		- Gebruiker klikt op 'volgende' pijl
+		- Het getal 2 wordt getoond. Stem zegt 'Dit is het getal twee'.
+		- Drie appels worden getoond. Stem zegt: Dit zijn - drie - appels.
+		- Gebruiker klikt op 'volgende' pijl
+		- Het getal 3 wordt getoond. Stem zegt 'Dit is het getal drie'.
+		- Gebruiker klikt op 'volgende' pijl
+		- De getallen één, twee en drie worden één na één herhaald, samen met het bijhorende 
+		aantal appels.
+		- Gebruiker klikt op 'volgende' pijl en keer terug naar overzicht.
+		
+	Oefening 1: De getallen 1, 2  en 3
 
-	- Er worden 1, 2 of 3 appels getoond. Stem zegt: 'Hoeveel appels tel je?'. 
-	- De gebruiker kiest het bijhorende getal. Stem zegt het gekozen getal.
-	- Indien juist: succesboodschap en succes-geluidje. Score +1. 
-	- Indien fout: toon juiste oplossing en speel fout-geluidje. Score blijft gelijk.
-	- Ga naar volgende opgave.
-	- Voortgang in oefening wordt bovenaan getoond.
+		- Er worden 1, 2 of 3 appels getoond. Stem zegt: 'Hoeveel appels tel je?'. 
+		- De gebruiker kiest het bijhorende getal. Stem zegt het gekozen getal.
+		- Indien juist: succesboodschap en succes-geluidje. Score +1. 
+		- Indien fout: toon juiste oplossing en speel fout-geluidje. Score blijft gelijk.
+		- Ga naar volgende opgave.
+		- Voortgang in oefening wordt bovenaan getoond.
 
-	
-Oefening 2: De getallen 1, 2  en 3
+		
+	Oefening 2: De getallen 1, 2  en 3
 
-	- Zelfde als oefening 2, maar nu wordt het getal getoond en moet het juiste aantal 
-	appels gekozen worden.
+		- Zelfde als oefening 2, maar nu wordt het getal getoond en moet het juiste aantal 
+		appels gekozen worden.
 
-Les 2: De getallen 4, 5  en 6
+	Les 2: De getallen 4, 5  en 6
 
-	- Idem als les 1, maar nu voor de getallen 4 t.e.m. 6
-	
-Oefening 3: De getallen 4, 5  en 6
+		- Idem als les 1, maar nu voor de getallen 4 t.e.m. 6
+		
+	Oefening 3: De getallen 4, 5  en 6
 
-	- Zelfde als oefening 1, maar nu voor de getallen 4, 5 en 6
-	
-Oefening 4: De getallen 4, 5  en 6
+		- Zelfde als oefening 1, maar nu voor de getallen 4, 5 en 6
+		
+	Oefening 4: De getallen 4, 5  en 6
 
-	- Zelfde als oefening 2, maar nu voor de getallen 4, 5 en 6
+		- Zelfde als oefening 2, maar nu voor de getallen 4, 5 en 6
 
-Les 3: De getallen 7, 8  en 9
+	Les 3: De getallen 7, 8  en 9
 
-	- Zelfde als les 1, maar nu voor de getallen 7 t.e.m. 9
-	
-Oefening 5: De getallen 7, 8  en 9
+		- Zelfde als les 1, maar nu voor de getallen 7 t.e.m. 9
+		
+	Oefening 5: De getallen 7, 8  en 9
 
-	- Zelfde als oefening 1, maar nu voor de getallen 7, 8  en 9
-	
-Oefening 6: De getallen 7, 8  en 9
+		- Zelfde als oefening 1, maar nu voor de getallen 7, 8  en 9
+		
+	Oefening 6: De getallen 7, 8  en 9
 
-	- Zelfde als oefening 2, maar nu voor de getallen 7, 8  en 9
+		- Zelfde als oefening 2, maar nu voor de getallen 7, 8  en 9
 
-Toets 1:
-	- Combinatie van oefeningen 1 en 2, met getallen 1 t.e.m. 9
+	Toets 1:
+		- Combinatie van oefeningen 1 en 2, met getallen 1 t.e.m. 9
 

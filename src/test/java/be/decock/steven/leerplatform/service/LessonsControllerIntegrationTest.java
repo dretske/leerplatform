@@ -1,4 +1,4 @@
-package be.decock.steven.leerplatform.user;
+package be.decock.steven.leerplatform.service;
 
 import be.decock.steven.leerplatform.domain.neo4j.Lesson;
 import static be.decock.steven.leerplatform.domain.neo4j.LessonTestBuilder.aLesson;
